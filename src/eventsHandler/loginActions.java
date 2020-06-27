@@ -21,31 +21,38 @@ public class loginActions implements ActionListener{
 	private JPasswordField pf;
 	private loginTerminal lt;
 	private JFrame frame;
-	String[] validNames=new String [2];
-	String[] validPassword=new String[2];
+	String[] validNames=new String [2];//used to store correct user name 
+	String[] validPassword=new String[2];//used to store correct passwords
 public loginActions(loginTerminal lt,JTextField tf, JPasswordField pf,JFrame frame)
 {
 	this.tf=tf;
 	this.pf=pf;
 	this.lt=lt;
 	this.frame=frame;
+	//temp in future i want the user to be able to set up the password via email
 	 validNames[0]="Zchemali";
 	 validNames[1]="ZiadChemali";
 	 validPassword[0]="1234567";
 	 validPassword[1]="1234567";
 
 }
+/**
+ * Overrides the method in the interface
+ */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean check=false;
+		boolean check=false;//flag to see if the correct combo exists
+		// check for user name and password if valid
 		for (int i=0;i<validNames.length;i++)
 		{	if(validNames[i].equals(tf.getText()) && validPassword[i].contentEquals(pf.getText()))
 			check=true;}
+		//if combo is valid then create the mainWindow terminal
 			if(check)
 			{
 				frame.dispose();
 				new mainWindow();
 			}
+			//
 			else
 				{JOptionPane.showMessageDialog(frame, "Incorrect combo");
 				System.out.println(validNames[0].equals(tf.getText()));

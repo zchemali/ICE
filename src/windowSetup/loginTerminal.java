@@ -109,7 +109,7 @@ public class loginTerminal {
 		gbc_button.gridy = 2;
 		loginTerminal_panel.add(button, gbc_button);
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame. setResizable(false);
 		frame.getContentPane().add(loginTerminal_panel);

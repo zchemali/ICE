@@ -1,30 +1,34 @@
 package windowSetup;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.Insets;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
-
 import eventsHandler.loginActions;
 
-import java.awt.Insets;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.CardLayout;
 
-public class LoginTerminal {
+/**
+ * This class creates the login terminal -if username/password correct then open @mainWindow
+ * @author zchem
+ *
+ */
+public class loginTerminal {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	/**
-	 * Launch the application.
+	 * Launch the application/ was used to set window
 	 */
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -42,7 +46,7 @@ public class LoginTerminal {
 	/**
 	 * Create the application.
 	 */
-	public LoginTerminal() {
+	public loginTerminal() {
 		initialize();
 	}
 	/**
@@ -109,7 +113,9 @@ public class LoginTerminal {
 		frame.setVisible(true);
 		frame. setResizable(false);
 		frame.getContentPane().add(loginTerminal_panel);
-		button.addActionListener(new loginActions(textField,passwordField));
+		frame.setLocationRelativeTo(null);
+		button.addActionListener(new loginActions(this,textField,passwordField,frame));
+		//i want to dispose of frame if correct match and to send infor back to controller of match succesfful
 	}
 
 }

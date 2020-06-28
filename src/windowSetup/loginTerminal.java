@@ -1,10 +1,7 @@
 package windowSetup;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
-import java.awt.GridLayout;
 import java.awt.Insets;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -12,14 +9,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import eventsHandler.loginActions;
-
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-import java.awt.CardLayout;
 
 /**
  * This class creates the login terminal -if username/password correct then open @mainWindow
  * @author zchem
+ * @since 26/6/2020
+ * @version 1.0
  *
  */
 public class loginTerminal {
@@ -44,7 +41,7 @@ public class loginTerminal {
 	}*/
 
 	/**
-	 * Create the application.
+	 * Constructor to creat the GUI
 	 */
 	public loginTerminal() {
 		initialize();

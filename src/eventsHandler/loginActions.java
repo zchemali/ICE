@@ -37,22 +37,20 @@ public loginActions(loginTerminal lt,JTextField tf, JPasswordField pf,JFrame fra
 
 }
 /**
- * Overrides the method in the interface
+ * Overrides the method in the interface-checks if the userName/Paswword combo are valid-
+ * if combo is correct then create the @mainWindow
  */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean check=false;//flag to see if the correct combo exists
-		// check for user name and password if valid
+		boolean check=false;
 		for (int i=0;i<validNames.length;i++)
 		{	if(validNames[i].equals(tf.getText()) && validPassword[i].contentEquals(pf.getText()))
 			check=true;}
-		//if combo is valid then create the mainWindow terminal
 			if(check)
 			{
 				frame.dispose();
 				new mainWindow();
 			}
-			//
 			else
 				{JOptionPane.showMessageDialog(frame, "Incorrect combo");
 				System.out.println(validNames[0].equals(tf.getText()));

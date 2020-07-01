@@ -7,6 +7,8 @@ import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -28,6 +30,9 @@ import java.awt.Label;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.BevelBorder;
+import java.awt.CardLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class WindowNav {
 
@@ -111,6 +116,17 @@ public class WindowNav {
 				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("162dlu", false), Sizes.constant("162dlu", false)), 5),}));
 		
 		JPanel homeNavPanel = new JPanel();
+		homeNavPanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				homeNavPanel.setBackground(new Color(255,66,0));
+				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				homeNavPanel.setBackground(new Color(78,119,165)); 
+			}
+		});
 		homeNavPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, null, null, null));
 		FlowLayout flowLayout = (FlowLayout) homeNavPanel.getLayout();
 		flowLayout.setVgap(13);
@@ -123,6 +139,7 @@ public class WindowNav {
 		homeNavPanel.add(homeIconCanvas);
 		
 		JLabel homeLabel = new JLabel("Home");
+	
 		homeLabel.setForeground(SystemColor.menu);
 		homeLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		homeNavPanel.add(homeLabel);
@@ -153,7 +170,6 @@ public class WindowNav {
 		
 		Canvas editIconCanvas = new Canvas();
 		editIconCanvas.setSize(20, 20);
-		editIconCanvas.setBackground(Color.RED);
 		inventoryEditPanel.add(editIconCanvas);
 		
 		JLabel EditLabel = new JLabel("Edit Inventory");
@@ -170,7 +186,6 @@ public class WindowNav {
 		
 		Canvas settingsIconCanvas = new Canvas();
 		settingsIconCanvas.setSize(20,20);
-		settingsIconCanvas.setBackground(Color.RED);
 		settingsNavPanel.add(settingsIconCanvas);
 		
 		JLabel settingsLAbel = new JLabel("Settings");
@@ -182,9 +197,10 @@ public class WindowNav {
 		logoutPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, null, null, null));
 		logoutPanel.setBackground(new Color(78,119,165));
 		tabPanel.add(logoutPanel, "1, 5, fill, fill");
+		logoutPanel.setLayout(new BoxLayout(logoutPanel, BoxLayout.Y_AXIS));
 		
 		Canvas canvaogoutIconCanvas = new Canvas();
-		canvaogoutIconCanvas.setBackground(Color.RED);
+		canvaogoutIconCanvas.setEnabled(false);
 		canvaogoutIconCanvas.setSize(20, 20);
 		logoutPanel.add(canvaogoutIconCanvas);
 		
@@ -192,6 +208,45 @@ public class WindowNav {
 		logoutLabel.setForeground(SystemColor.menu);
 		logoutLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		logoutPanel.add(logoutLabel);
+		
+		JPanel cardPanel = new JPanel();
+		cardPanel.setMinimumSize(new Dimension(2000, 660));
+		splitPane.setRightComponent(cardPanel);
+		
+		cardPanel.setLayout(new CardLayout(0, 0));
+		
+		JPanel homeCardPanel = new JPanel();
+		homeCardPanel.setBackground(new Color(82,94,104));
+		
+		cardPanel.add(homeCardPanel, "Home");
+		
+		JLabel lblNewLabel = new JLabel("home");
+		lblNewLabel.setForeground(SystemColor.menu);
+		homeCardPanel.add(lblNewLabel);
+		
+		JPanel inventoryCardPanel = new JPanel();
+		inventoryCardPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(inventoryCardPanel, "Inventory");
+		
+		JLabel lblNewLabel_1 = new JLabel("inventpry");
+		lblNewLabel_1.setForeground(SystemColor.text);
+		inventoryCardPanel.add(lblNewLabel_1);
+		
+		JPanel inventoryEditCardPanel = new JPanel();
+		inventoryEditCardPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(inventoryEditCardPanel, "Edit");
+		
+		JLabel lblNewLabel_2 = new JLabel("edit");
+		lblNewLabel_2.setForeground(SystemColor.info);
+		inventoryEditCardPanel.add(lblNewLabel_2);
+		
+		JPanel settingsCardPanel = new JPanel();
+		settingsCardPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(settingsCardPanel, "Settings");
+		
+		JLabel lblNewLabel_3 = new JLabel("settings");
+		lblNewLabel_3.setForeground(SystemColor.inactiveCaptionBorder);
+		settingsCardPanel.add(lblNewLabel_3);
 		
 	}
 }

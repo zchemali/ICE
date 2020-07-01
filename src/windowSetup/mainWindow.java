@@ -2,6 +2,8 @@ package windowSetup;
 
 import java.awt.EventQueue;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -20,6 +22,7 @@ import java.awt.Insets;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import net.miginfocom.swing.MigLayout;
@@ -69,24 +72,49 @@ public class mainWindow  {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setSize(430,594);
+		frame.setSize(448,594);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 	
+		JPanel headerPanel = new JPanel();
+		headerPanel.setBackground(new Color(32,43,65));
 		
+		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
+		GridBagLayout gbl_headerPanel = new GridBagLayout();
+		gbl_headerPanel.columnWidths = new int[]{20, 268};
+		gbl_headerPanel.rowHeights = new int[] {58};
+		gbl_headerPanel.columnWeights = new double[]{0.0, 4.9E-324};
+		gbl_headerPanel.rowWeights = new double[]{0.0};
+		headerPanel.setLayout(gbl_headerPanel);
+		
+		Canvas canvas = new Canvas();
+		canvas.setBackground(Color.YELLOW);
+		GridBagConstraints gbc_canvas = new GridBagConstraints();
+		gbc_canvas.fill = GridBagConstraints.BOTH;
+		gbc_canvas.insets = new Insets(0, 0, 0, 5);
+		gbc_canvas.gridx = 0;
+		gbc_canvas.gridy = 0;
+		headerPanel.add(canvas, gbc_canvas);
+		
+		JLabel titleLabel = new JLabel("ICE");
+		titleLabel.setForeground(Color.WHITE);
+		titleLabel.setFont(new Font("Microsoft Himalaya", Font.BOLD, 26));
+		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
+		gbc_titleLabel.fill = GridBagConstraints.BOTH;
+		gbc_titleLabel.gridx = 1;
+		gbc_titleLabel.gridy = 0;
+		headerPanel.add(titleLabel, gbc_titleLabel);
 		//frame.getContentPane().setLayout(null);
 		//splits the container into two parts the navigation panel on the left and the display panles on the right WITH CARD LAYOUT
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setOneTouchExpandable(true);
-		splitPane.setSize(WIDTH, HEIGHT-HEADERHEIGHT);
-		splitPane.setBounds(0, HEADERHEIGHT, frame.getWidth(), frame.getHeight()-HEADERHEIGHT);
+		splitPane.setOneTouchExpandable(false);
 		//splitPane.setDividerLocation(0.3);
 		
 		//need to make border of two sides fixed
-		frame.getContentPane().add(splitPane, BorderLayout.WEST);
+		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
 		JPanel cardPane = new JPanel();
-		cardPane.setPreferredSize(new Dimension(WIDTH-WIDTH/4, HEIGHT-28));
+		cardPane.setMinimumSize(new Dimension(2000,HEIGHT-HEADERHEIGHT));
 		splitPane.setRightComponent(cardPane);
 		CardLayout c= new CardLayout(0,0);
 	
@@ -97,6 +125,8 @@ public class mainWindow  {
 		cardPane.add(homePanel,"Home");
 		
 		JPanel inventoryCheckPanel = new JPanel();
+		JLabel l=new JLabel("THIS IS INVENTORY bro");
+		inventoryCheckPanel.add(l);
 		cardPane.add(inventoryCheckPanel,"Inventory");
 		
 		JPanel inventoryEditPanel = new JPanel();
@@ -107,12 +137,8 @@ public class mainWindow  {
 		cardPane.add(settingsPanel,"Settings");
 		
 		//NavigationPannel np=new NavigationPannel(WIDTH/4,HEIGHT-28,)
-		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28));
-		splitPane.getLeftComponent().setSize(10,HEIGHT-28);
-		
-		JPanel header_panel = new JPanel();
-		header_panel.setBounds(0, 0, 370, 28);
-		frame.getContentPane().add(header_panel);
+		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPane,c));
+	
 	}
 	
 

@@ -1,17 +1,28 @@
 package navigationPannel;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.Sizes;
+
+import eventsHandler.NavigationPanelEvents;
 import imageHandle.ImageLoader;
 
 /**
@@ -22,115 +33,148 @@ import imageHandle.ImageLoader;
  */
 public class NavigationPannel extends JPanel {
 	private ImageLoader loader;
-	private JPanel home, inventoryCheck, inventoryEdit, settings, logout;
-
-	public NavigationPannel(int width, int height) {
+	private JPanel cardPanel,home, inventoryCheck, inventoryEdit, settings, logout;
+	private NavigationPanelEvents event;
+	CardLayout c1;
+	/**
+	 * 
+	 * @param width still not sure if needed
+	 * @param height still not sure if needed
+	 * @param cardPane this is the parent panel of right side of splitPane it is passed to the event class {@link #NavigationPanelEvents}
+	 * @param c1 this is the card layout of the parent panel and it is passed to the event class {@link #NavigationPanelEvents}
+	 */
+	public NavigationPannel(int width, int height, JPanel cardPane, CardLayout c1) {
 		loader = new ImageLoader();
 		this.setLayout(new GridBagLayout());
 		this.setSize((new Dimension(width, height)));
 		this.setMaximumSize((new Dimension(width, height)));
+		this.cardPanel=cardPane;
+		this.c1=c1;
+		this.setLayout(new FormLayout(new ColumnSpec[] {
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("120dlu", true), Sizes.constant("120dlu", true)), 0),},
+			new RowSpec[] {
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("30dlu", false), Sizes.constant("30dlu", false)), 0),
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("30dlu", false), Sizes.constant("30dlu", false)), 0),
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("30dlu", false), Sizes.constant("30dlu", false)), 0),
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("30dlu", false), Sizes.constant("30dlu", false)), 0),
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.PREFERRED, Sizes.constant("162dlu", false), Sizes.constant("162dlu", false)), 5),}));
 		
-
 		home = new JPanel();
-		GridBagConstraints gbc_homeNavigationPanel = new GridBagConstraints();
-		gbc_homeNavigationPanel.fill = GridBagConstraints.BOTH;
-		gbc_homeNavigationPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_homeNavigationPanel.gridx = 0;
-		gbc_homeNavigationPanel.gridy = 0;
-		gbc_homeNavigationPanel.weighty = 0.01;
-		this.add(home, gbc_homeNavigationPanel);
-
-		home.setLayout(new FlowLayout());
+		home.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, null, null, null));
+		FlowLayout flowLayout = (FlowLayout) home.getLayout();
+		flowLayout.setVgap(13);
+		home.setBackground(new Color(78,119,165));
+		this.add(home, "1, 1, fill, fill");
+		
+		Canvas homeIconCanvas = new Canvas() {
+			public void paint(Graphics g) {
+				g.drawImage(loader.getImage("/home_icon.png"), 0, 0, 22, 22,null);
+			}};
+		homeIconCanvas.setSize(20, 20);
+		home.add(homeIconCanvas);
+		
 		JLabel homeLabel = new JLabel("Home");
-
-		Canvas canvas = new Canvas() {
-
-			public void paint(Graphics g) {
-
-				g.drawImage(loader.getImage("/home_icon.png"), 0, 0, 22, 22, null);
-			}
-		};
-		canvas.setSize(20, 20);
-
-		home.add(canvas);
+		homeLabel.setForeground(SystemColor.menu);
+		homeLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		home.add(homeLabel);
-
+		
 		inventoryCheck = new JPanel();
-		GridBagConstraints gbc_inventoryCheckNavigationPanel = new GridBagConstraints();
-		gbc_inventoryCheckNavigationPanel.fill = GridBagConstraints.BOTH;
-		gbc_inventoryCheckNavigationPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_inventoryCheckNavigationPanel.gridx = 0;
-		gbc_inventoryCheckNavigationPanel.gridy = 1;
-		gbc_inventoryCheckNavigationPanel.weighty = 0.01;
-		this.add(inventoryCheck, gbc_inventoryCheckNavigationPanel);
-		inventoryCheck.setLayout(new FlowLayout());
-		JLabel inventoryCheckLabel = new JLabel("Inventory");
-
-		Canvas canvas2 = new Canvas() {
-
-			public void paint(Graphics g) {
-
+		inventoryCheck.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, null, null, null));
+		inventoryCheck.setBackground(new Color(78,119,165));
+		this.add(inventoryCheck, "1, 2, fill, fill");
+		inventoryCheck.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 13));
+		
+		Canvas inventoryIconCanvas = new Canvas() {
+			public void paint(Graphics g)
+			{
 				g.drawImage(loader.getImage("/inventory.png"), 0, 0, 22, 22, null);
-			}
-		};
-		canvas2.setSize(20, 20);
-
-		inventoryCheck.add(canvas2);
-		inventoryCheck.add(inventoryCheckLabel);
-
+		}};
+		inventoryIconCanvas.setSize(20, 20);
+		inventoryCheck.add(inventoryIconCanvas);
+		
+		JLabel inventoryLabel = new JLabel("Inventory");
+		inventoryLabel.setForeground(SystemColor.menu);
+		inventoryLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		inventoryCheck.add(inventoryLabel);
+		
 		inventoryEdit = new JPanel();
-		GridBagConstraints gbc_editInventoryNavigationPanel = new GridBagConstraints();
-		gbc_editInventoryNavigationPanel.fill = GridBagConstraints.BOTH;
-		gbc_editInventoryNavigationPanel.insets = new Insets(0, 0, 5, 0);
-		gbc_editInventoryNavigationPanel.gridx = 0;
-		gbc_editInventoryNavigationPanel.gridy = 2;
-		gbc_editInventoryNavigationPanel.weighty = 0.01;
-		this.add(inventoryEdit, gbc_editInventoryNavigationPanel);
-		inventoryEdit.setLayout(new FlowLayout());
-		JLabel inventoryEditLabel = new JLabel("Edit Inventory");
-
-		Canvas canvas3 = new Canvas() {
-			public void paint(Graphics g) {
+		inventoryEdit.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 13));
+		inventoryEdit.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		inventoryEdit.setBackground(new Color(78,119,165));
+		this.add(inventoryEdit, "1, 3, fill, fill");
+		
+		Canvas editIconCanvas = new Canvas() {
+			public void paint (Graphics g) {
 				g.drawImage(loader.getImage("/editInventory.png"), 0, 0, 22, 22, null);
-			}
-		};
-		canvas3.setSize(20, 20);
-		inventoryEdit.add(canvas3);
-		inventoryEdit.add(inventoryEditLabel);
-
+		}};
+		editIconCanvas.setSize(20, 20);
+		inventoryEdit.add(editIconCanvas);
+		
+		JLabel EditLabel = new JLabel("Edit Inventory");
+		EditLabel.setForeground(SystemColor.menu);
+		EditLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		inventoryEdit.add(EditLabel);
+		
 		settings = new JPanel();
-		GridBagConstraints gbc_settingsNavigationPanel = new GridBagConstraints();
-		gbc_settingsNavigationPanel.fill = GridBagConstraints.BOTH;
-		gbc_settingsNavigationPanel.gridx = 0;
-		gbc_settingsNavigationPanel.gridy = 3;
-		gbc_settingsNavigationPanel.weighty = 0.1;
-		this.add(settings, gbc_settingsNavigationPanel);
-		settings.setLayout(new FlowLayout());
-		JLabel settingsLabel = new JLabel("Settings");
-		Canvas canvas4 = new Canvas() {
-			public void paint(Graphics g) {
+		settings.setLayout(new FlowLayout(FlowLayout.CENTER,5,13));
+		settings.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		settings.setBackground(new Color(78,119,165));
+		this.add(settings, "1, 4, fill, fill");
+		
+		Canvas settingsIconCanvas = new Canvas() {
+			public void paint (Graphics g) {
 				g.drawImage(loader.getImage("/settings.png"), 0, 0, 22, 22, null);
-			}
-		};
-		canvas4.setSize(20, 20);
-		settings.add(canvas4);
-		settings.add(settingsLabel);
-
+		}};
+		settingsIconCanvas.setSize(20,20);
+		settings.add(settingsIconCanvas);
+		
+		JLabel settingsLAbel = new JLabel("Settings");
+		settingsLAbel.setForeground(SystemColor.menu);
+		settingsLAbel.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		settings.add(settingsLAbel);
+		
 		logout = new JPanel();
-		GridBagConstraints gbc_logout = new GridBagConstraints();
-		gbc_logout.fill = GridBagConstraints.BOTH;
-		gbc_logout.gridx = 0;
-		gbc_logout.gridy = 4;
-		gbc_logout.weighty = 0.01;
-		this.add(logout, gbc_logout);
-
-		Canvas canvas5 = new Canvas() {
-			public void paint(Graphics g) {
-				g.drawImage(loader.getImage("/logout.png"), 0, 0, 24, 24, null);
-			}
-		};
-		canvas5.setSize(25, 25);
-		logout.add(canvas5);
+		logout.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.WHITE, null, null, null));
+		logout.setBackground(new Color(78,119,165));
+		logout.setLayout(new GridBagLayout());
+		GridBagConstraints c=new GridBagConstraints();
+		c.anchor=GridBagConstraints.SOUTH;
+		
+		this.add(logout, "1, 5, fill, fill");
+		
+		Canvas canvaogoutIconCanvas = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/logout.png"), 0, 0, 30, 30, null);
+		}};
+		canvaogoutIconCanvas.setSize(30, 30);
+		logout.add(canvaogoutIconCanvas);
+		event=new NavigationPanelEvents(c1, cardPanel, home, inventoryCheck, inventoryEdit, settings, logout);
+		home.addMouseListener(event);
+		/*
+		 * not needed
+		JLabel logoutLabel = new JLabel("Logout");
+		logoutLabel.setForeground(SystemColor.menu);
+		logoutLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		logoutPanel.add(logoutLabel);
+		
+		JPanel cardPanel = new JPanel();
+		splitPane.setRightComponent(cardPanel);
+		cardPanel.setLayout(new CardLayout(0, 0));
+		
+		JPanel homeCardPanel = new JPanel();
+		cardPanel.add(homeCardPanel, "Home");
+		
+		JPanel inventoryCardPanel = new JPanel();
+		cardPanel.add(inventoryCardPanel, "Inventory");
+		
+		JPanel inventoryEditCardPanel = new JPanel();
+		cardPanel.add(inventoryEditCardPanel, "Edit");
+		
+		JPanel settingsCardPanel = new JPanel();
+		cardPanel.add(settingsCardPanel, "Settings");
+		
+	}
+		*/
 
 	}
 }

@@ -17,11 +17,14 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 /**
  * This class creates the main window terminal where the user can navigate to different panels
  * panel1=home
@@ -36,7 +39,7 @@ import java.awt.Color;
 public class mainWindow  {
 
 	private JFrame frame;
-	private static final int WIDTH=400,HEIGHT=400;
+	private static final int WIDTH=400,HEIGHT=400,HEADERHEIGHT=40;;
 	
 	/**
 	 * Launch the application.
@@ -66,35 +69,46 @@ public class mainWindow  {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setSize(WIDTH,HEIGHT);
+		frame.setSize(430,594);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+	
+		
+		//frame.getContentPane().setLayout(null);
 		//splits the container into two parts the navigation panel on the left and the display panles on the right WITH CARD LAYOUT
 		JSplitPane splitPane = new JSplitPane();
-		splitPane.setBounds(0, 30, WIDTH, HEIGHT);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setSize(WIDTH, HEIGHT-HEADERHEIGHT);
+		splitPane.setBounds(0, HEADERHEIGHT, frame.getWidth(), frame.getHeight()-HEADERHEIGHT);
+		//splitPane.setDividerLocation(0.3);
+		
 		//need to make border of two sides fixed
-		frame.getContentPane().add(splitPane);
+		frame.getContentPane().add(splitPane, BorderLayout.WEST);
 		
-		JPanel home_panel = new JPanel();
-		splitPane.setRightComponent(home_panel);
-		home_panel.setLayout(new CardLayout(0, 0));
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		home_panel.add(scrollPane, "name_1073931092874200");
-		
-		JPanel panel = new JPanel();
-		home_panel.add(panel, "name_1074184709261599");
-		
-		JPanel panel_1 = new JPanel();
-		home_panel.add(panel_1, "name_1074188909790600");
-		
-		JPanel panel_2 = new JPanel();
-		home_panel.add(panel_2, "name_1074192120796599");
-		
-		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28));
+		JPanel cardPane = new JPanel();
+		cardPane.setPreferredSize(new Dimension(WIDTH-WIDTH/4, HEIGHT-28));
+		splitPane.setRightComponent(cardPane);
+		CardLayout c= new CardLayout(0,0);
 	
+		cardPane.setLayout(c);
+		
+		JPanel homePanel = new JPanel();
+		
+		cardPane.add(homePanel,"Home");
+		
+		JPanel inventoryCheckPanel = new JPanel();
+		cardPane.add(inventoryCheckPanel,"Inventory");
+		
+		JPanel inventoryEditPanel = new JPanel();
+		cardPane.add(inventoryEditPanel,"Edit");
+		
+		JPanel settingsPanel = new JPanel();
+		
+		cardPane.add(settingsPanel,"Settings");
+		
+		//NavigationPannel np=new NavigationPannel(WIDTH/4,HEIGHT-28,)
+		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28));
+		splitPane.getLeftComponent().setSize(10,HEIGHT-28);
 		
 		JPanel header_panel = new JPanel();
 		header_panel.setBounds(0, 0, 370, 28);

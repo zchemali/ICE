@@ -150,6 +150,10 @@ public class NavigationPannel extends JPanel {
 		logout.add(canvaogoutIconCanvas);
 		event=new NavigationPanelEvents(c1, cardPanel, home, inventoryCheck, inventoryEdit, settings, logout);
 		home.addMouseListener(event);
+		inventoryCheck.addMouseListener(event);
+		inventoryEdit.addMouseListener(event);
+		settings.addMouseListener(event);
+		logout.addMouseListener(event);
 		/*
 		 * not needed
 		JLabel logoutLabel = new JLabel("Logout");

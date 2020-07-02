@@ -30,6 +30,9 @@ import java.awt.Label;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.TextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.DropMode;
 
 /**
  * This class creates the login terminal -if username/password correct then open @mainWindow
@@ -70,7 +73,7 @@ public class loginTerminal {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Login");
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 500, 232);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,21 +93,37 @@ public class loginTerminal {
 		backgroundCanvas.setBounds(0, 0, 494, 197);
 		layeredPane.add(backgroundCanvas);
 		
-		Canvas userNameIcon = new Canvas();
-		userNameIcon.setBackground(Color.RED);
+		Canvas userNameIcon = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/usernameicon.png"), 0, 0, 22, 22, null);
+			}
+		};
+		userNameIcon.setBackground(new Color(153,236,252));
 		layeredPane.setLayer(userNameIcon, 1);
-		userNameIcon.setBounds(148, 48, 33, 24);
+		userNameIcon.setBounds(148, 48, 22, 22);
 		layeredPane.add(userNameIcon);
 		
 		TextField textField = new TextField();
+		textField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textField.setText("");
+			}
+		});
+		textField.setText("UserName");
 		layeredPane.setLayer(textField, 1);
 		textField.setBounds(187, 48, 94, 24);
 		layeredPane.add(textField);
 		
-		Canvas passwordIcon = new Canvas();
-		layeredPane.setLayer(passwordIcon, 1);
-		passwordIcon.setBackground(Color.RED);
-		passwordIcon.setBounds(148, 87, 33, 24);
+		Canvas passwordIcon = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/passwordicon.png"), 0,0,22,22,null);
+			}
+		};
+		passwordIcon.setBackground(new Color(153,236,252));
+		layeredPane.setLayer(passwordIcon, 50);
+		
+		passwordIcon.setBounds(148, 87, 22, 22);
 		layeredPane.add(passwordIcon);
 		
 		passwordField = new JPasswordField();

@@ -16,6 +16,8 @@ import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Graphics;
+
 import javax.swing.UIManager;
 import java.awt.Canvas;
 import java.awt.Insets;
@@ -24,6 +26,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
+
+import imageHandle.ImageLoader;
+
 import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.SystemColor;
 import java.awt.Label;
@@ -33,10 +38,13 @@ import javax.swing.border.BevelBorder;
 import java.awt.CardLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JLayeredPane;
+import javax.swing.JMenuBar;
 
 public class WindowNav {
 
 	private JFrame frame;
+	private ImageLoader loader;
 
 	/**
 	 * Launch the application.
@@ -59,6 +67,7 @@ public class WindowNav {
 	 */
 	public WindowNav() {
 		initialize();
+		loader =new ImageLoader();
 	}
 
 	/**
@@ -66,7 +75,7 @@ public class WindowNav {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 656, 666);
+		frame.setBounds(100, 100, 656, 356);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
@@ -218,11 +227,19 @@ public class WindowNav {
 		JPanel homeCardPanel = new JPanel();
 		homeCardPanel.setBackground(new Color(82,94,104));
 		
-		cardPanel.add(homeCardPanel, "Home");
 		
-		JLabel lblNewLabel = new JLabel("home");
-		lblNewLabel.setForeground(SystemColor.menu);
-		homeCardPanel.add(lblNewLabel);
+		
+		JLayeredPane home = new JLayeredPane();
+		home.add(homeCardPanel);
+		cardPanel.add(home, "Home");
+		Canvas canvas_1 = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/cardPanel.jpg"), 0, 0,1800,1000, null);
+			}
+		};
+		home.setLayer(canvas_1, 1);
+		canvas_1.setSize(1800, 1000);
+		home.add(canvas_1);
 		
 		JPanel inventoryCardPanel = new JPanel();
 		inventoryCardPanel.setBackground(new Color(82,94,104));

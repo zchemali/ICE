@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import imageHandle.ImageLoader;
 import navigationPannel.NavigationPannel;
 
 import java.awt.GridBagLayout;
@@ -28,6 +29,9 @@ import java.awt.Canvas;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.JLayeredPane;
 /**
  * This class creates the main window terminal where the user can navigate to different panels
  * panel1=home
@@ -43,7 +47,7 @@ public class mainWindow  {
 
 	private JFrame frame;
 	private static final int WIDTH=400,HEIGHT=400,HEADERHEIGHT=40;;
-	
+	private ImageLoader loader;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +69,7 @@ public class mainWindow  {
 	 */
 	public mainWindow() {
 		initialize();
+		loader=new ImageLoader();
 	}
 
 	/**
@@ -77,33 +82,25 @@ public class mainWindow  {
 		frame.setLocationRelativeTo(null);
 	
 		JPanel headerPanel = new JPanel();
+		headerPanel.setMinimumSize(new Dimension (50,50));
 		headerPanel.setBackground(new Color(32,43,65));
 		
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
-		GridBagLayout gbl_headerPanel = new GridBagLayout();
-		gbl_headerPanel.columnWidths = new int[]{20, 268};
-		gbl_headerPanel.rowHeights = new int[] {58};
-		gbl_headerPanel.columnWeights = new double[]{0.0, 4.9E-324};
-		gbl_headerPanel.rowWeights = new double[]{0.0};
-		headerPanel.setLayout(gbl_headerPanel);
-		
-		Canvas canvas = new Canvas();
-		canvas.setBackground(Color.YELLOW);
-		GridBagConstraints gbc_canvas = new GridBagConstraints();
-		gbc_canvas.fill = GridBagConstraints.BOTH;
-		gbc_canvas.insets = new Insets(0, 0, 0, 5);
-		gbc_canvas.gridx = 0;
-		gbc_canvas.gridy = 0;
-		headerPanel.add(canvas, gbc_canvas);
+		headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.X_AXIS));
 		
 		JLabel titleLabel = new JLabel("ICE");
+		titleLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font("Microsoft Himalaya", Font.BOLD, 26));
-		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
-		gbc_titleLabel.fill = GridBagConstraints.BOTH;
-		gbc_titleLabel.gridx = 1;
-		gbc_titleLabel.gridy = 0;
-		headerPanel.add(titleLabel, gbc_titleLabel);
+		headerPanel.add(titleLabel);
+		
+		Canvas icelogo = new Canvas() {
+			public void paint (Graphics g)
+			{
+				g.drawImage(loader.getImage("/ice.png"), 0, 0, 22, 22, this);
+			}
+		};
+		headerPanel.add(icelogo);
 		//frame.getContentPane().setLayout(null);
 		//splits the container into two parts the navigation panel on the left and the display panles on the right WITH CARD LAYOUT
 		JSplitPane splitPane = new JSplitPane();
@@ -140,6 +137,4 @@ public class mainWindow  {
 		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPane,c));
 	
 	}
-	
-
 }

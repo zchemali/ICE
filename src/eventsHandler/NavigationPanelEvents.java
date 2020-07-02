@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import navigationPannel.NavigationPannel;
 /**
  * This class handles all of the events that occur on the {@link #NavigationPannel}
  * 
@@ -24,6 +27,7 @@ public class NavigationPanelEvents implements MouseListener {
 	 * @param inventoryEdit this is one of the navigation panels and passed from {@link #NavigationPannel}
 	 * @param settings this is one of the navigation panels and passed from {@link #NavigationPannel}
 	 * @param logout this is one of the navigation panels and passed from {@link #NavigationPannel}
+	 * @param navigationPannel 
 	 */
  public NavigationPanelEvents(CardLayout c,JPanel cardPanel,JPanel home, JPanel inventoryCheck, JPanel  inventoryEdit, JPanel settings,JPanel  logout) {
 	 this.cardPanel=cardPanel;
@@ -37,9 +41,19 @@ public class NavigationPanelEvents implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==home)
-			c.show(cardPanel, "Inventory");
-	}
-
+			c.show(cardPanel, "Home");
+		else if(e.getSource()==inventoryCheck)
+			c.show(cardPanel,"Inventory");
+		else if(e.getSource()==inventoryEdit)
+			c.show(cardPanel, "Edit");
+		else if(e.getSource()==settings)
+			c.show(cardPanel, "Settings");
+		else if (e.getSource()==logout) {
+			 int temp = JOptionPane.showConfirmDialog(cardPanel, "Are you sure you want to logout", "Alert", JOptionPane.YES_NO_OPTION);
+		if (temp==JOptionPane.YES_OPTION)
+			System.exit(0);
+			
+	}}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -54,14 +68,31 @@ public class NavigationPanelEvents implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		if(e.getSource()==home)
-			home.setBackground(Color.WHITE);
+		if(e.getSource()==home )
+			home.setBackground(new Color(255,66,0));
+		else if(e.getSource()==inventoryCheck)
+			inventoryCheck.setBackground(new Color(255,66,0));
+		else if(e.getSource()==inventoryEdit)
+			inventoryEdit.setBackground(new Color(255,66,0));
+		else if(e.getSource()==settings)
+			settings.setBackground(new Color(255,66,0));
+		else if (e.getSource()==logout) 
+			logout.setBackground(new Color(255,66,0));
+		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		if(e.getSource()==home )
+			home.setBackground(new Color(78,119,165));
+		else if(e.getSource()==inventoryCheck)
+			inventoryCheck.setBackground(new Color(78,119,165));
+		else if(e.getSource()==inventoryEdit)
+			inventoryEdit.setBackground(new Color(78,119,165));
+		else if(e.getSource()==settings)
+			settings.setBackground(new Color(78,119,165));
+		else if (e.getSource()==logout) 
+			logout.setBackground(new Color(78,119,165));
 	}
 
 }

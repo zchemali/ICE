@@ -224,20 +224,16 @@ public class WindowNav {
 		
 		cardPanel.setLayout(new CardLayout(0, 0));
 		
-		JPanel homeCardPanel = new JPanel();
-		homeCardPanel.setBackground(new Color(82,94,104));
-		
 		
 		
 		JLayeredPane home = new JLayeredPane();
-		home.add(homeCardPanel);
+		
 		cardPanel.add(home, "Home");
 		Canvas canvas_1 = new Canvas() {
 			public void paint (Graphics g) {
 				g.drawImage(loader.getImage("/cardPanel.jpg"), 0, 0,1800,1000, null);
 			}
 		};
-		home.setLayer(canvas_1, 1);
 		canvas_1.setSize(1800, 1000);
 		home.add(canvas_1);
 		

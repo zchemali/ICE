@@ -49,18 +49,18 @@ public class loginTerminal {
 	/**
 	 * Launch the application/ was used to set window
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					loginTerminal window = new loginTerminal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					loginTerminal window = new loginTerminal();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Constructor to creat the GUI
@@ -136,5 +136,7 @@ public class loginTerminal {
 		btnNewButton.setBounds(184, 122, 97, 25);
 		layeredPane.add(btnNewButton);
 		
+		loginActions event = new loginActions(textField, passwordField, frame);
+		btnNewButton.addActionListener(event);
 	}
 }

@@ -116,8 +116,29 @@ public class Test {
 	//Need a search method to search for item in ALL COLUMNS based on barcode
 	public static void main(String[] args) {
 		Test test =new Test();
-		test.selectColumn();
-		test.check();
+		boolean check=true;
+		while(check) {
+			System.out.println("Do you want to add product");
+			
+			Scanner scanner =new Scanner(System.in);
+			if(scanner.next().equalsIgnoreCase("yes"))
+			test.selectColumn();	
+			else {
+				check=false;
+			}
+		}
+		boolean check2=true;
+		while(check2) {
+			System.out.println("Do you want to check inventory");
+			
+			Scanner scanner =new Scanner(System.in);
+			if(scanner.next().equalsIgnoreCase("yes"))
+				test.check();	
+			else {
+				check2=false;
+			}
+		}
+		
 		
 		
 	}

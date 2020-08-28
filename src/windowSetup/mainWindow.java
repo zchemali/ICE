@@ -13,6 +13,8 @@ import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+import com.mongodb.client.MongoDatabase;
+
 import imageHandle.ImageLoader;
 import navigationPannel.NavigationPannel;
 
@@ -48,26 +50,29 @@ public class mainWindow  {
 	private JFrame frame;
 	private static final int WIDTH=400,HEIGHT=400,HEADERHEIGHT=40;;
 	private ImageLoader loader;
+	private MongoDatabase db;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					mainWindow window = new mainWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					mainWindow window = new mainWindow();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
+	 * @param db 
 	 */
-	public mainWindow() {
+	public mainWindow(MongoDatabase db) {
+		this.db=db;
 		initialize();
 		loader=new ImageLoader();
 	}
@@ -77,6 +82,7 @@ public class mainWindow  {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setSize(448,594);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);

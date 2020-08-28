@@ -65,10 +65,13 @@ public loginActions(TextField textField, JPasswordField pf,JFrame frame)
 		
 		try {
 			System.out.println(mongoClient.getDatabaseNames());
-			System.out.println(db.getName());}
+			System.out.println(db.getName());
+			new mainWindow(db);
+			frame.dispose();
+			}
 		catch (Exception e1) {
 							
-				{JOptionPane.showMessageDialog(frame, "Incorrect combo");
+				{JOptionPane.showMessageDialog(frame, "Please Enter valid Username/Password");
 				tf.setText("");
 				pf.setName("");
 				

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 /**
- * This class loads the images from res folder
+ * This class loads the images from res folder , used for icons
  * @author zchem
  *
  */

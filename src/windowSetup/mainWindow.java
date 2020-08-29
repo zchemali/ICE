@@ -29,6 +29,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import net.miginfocom.swing.MigLayout;
+import panels.Inventory;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
@@ -127,10 +129,10 @@ public class mainWindow  {
 		
 		cardPane.add(homePanel,"Home");
 		
-		JPanel inventoryCheckPanel = new JPanel();
-		JLabel l=new JLabel("THIS IS INVENTORY bro");
-		inventoryCheckPanel.add(l);
-		cardPane.add(inventoryCheckPanel,"Inventory");
+//		JPanel inventoryCheckPanel = new JPanel();
+//		JLabel l=new JLabel("THIS IS INVENTORY bro");
+//		inventoryCheckPanel.add(l);
+		cardPane.add(new Inventory(cardPane,c),"Inventory");
 		
 		JPanel inventoryEditPanel = new JPanel();
 		cardPane.add(inventoryEditPanel,"Edit");

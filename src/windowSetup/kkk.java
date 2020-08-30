@@ -16,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -462,7 +463,7 @@ public class kkk {
 		purchaseButton.setForeground(SystemColor.controlText);
 //		purchaseButton.setBackground(SystemColor.activeCaption);
 		purchaseButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		purchaseButton.setBounds(186, 428, 177, 25);
+		purchaseButton.setBounds(167, 454, 177, 25);
 		purchasePanel.add(purchaseButton);
 		
 		lastNameField = new JTextField();
@@ -476,12 +477,84 @@ public class kkk {
 		lastNameLabel.setBackground(SystemColor.inactiveCaption);
 		lastNameLabel.setBounds(203, 254, 91, 25);
 		purchasePanel.add(lastNameLabel);
+		
+		JLabel tireNameLabel = new JLabel("Tire Name");
+		tireNameLabel.setOpaque(true);
+		tireNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireNameLabel.setBackground(SystemColor.inactiveCaption);
+		tireNameLabel.setBounds(193, 57, 81, 25);
+		purchasePanel.add(tireNameLabel);
+		
+		JLabel tireNameText = new JLabel("Name");
+		tireNameText.setOpaque(true);
+		tireNameText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireNameText.setEnabled(false);
+		tireNameText.setBackground(SystemColor.inactiveCaption);
+		tireNameText.setBounds(286, 57, 81, 25);
+		purchasePanel.add(tireNameText);
+		
+		JLabel priceLabel = new JLabel("Price ea");
+		priceLabel.setOpaque(true);
+		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		priceLabel.setBackground(SystemColor.inactiveCaption);
+		priceLabel.setBounds(193, 97, 81, 25);
+		purchasePanel.add(priceLabel);
+		
+		JLabel priceText = new JLabel("Price");
+		priceText.setOpaque(true);
+		priceText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		priceText.setEnabled(false);
+		priceText.setBackground(SystemColor.inactiveCaption);
+		priceText.setBounds(286, 97, 81, 25);
+		purchasePanel.add(priceText);
+		
+		JLabel dateLabel = new JLabel("Date dd/mm/yyyy");
+		dateLabel.setOpaque(true);
+		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		dateLabel.setBackground(SystemColor.inactiveCaption);
+		dateLabel.setBounds(7, 409, 142, 25);
+		purchasePanel.add(dateLabel);
+		
+		JComboBox dayBox = new JComboBox();
+		dayBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		dayBox.setBounds(180, 412, 41, 22);
+		purchasePanel.add(dayBox);
+		
+		JComboBox monthBox = new JComboBox();
+		monthBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		monthBox.setBounds(233, 412, 41, 22);
+		purchasePanel.add(monthBox);
+		
+		JComboBox yearBox = new JComboBox();
+		yearBox.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025"}));
+		yearBox.setBounds(286, 412, 58, 22);
+		purchasePanel.add(yearBox);
 		purchaseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==purchaseButton) {
-					
+					if(amountField.getText().isEmpty() || nameField.getText().isEmpty() || lastNameField.getText().isEmpty() || phoneField.getText().isEmpty()|| emailField.getText().isEmpty() || adressField.getText().isEmpty() || cityField.getText().isEmpty() || provinceField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(purchasePanel, "One or more fields are empty");
+					}
+					else {
 					String barcodePurchase=barcodeText.getText();
-				}
+					String tireNamePurchase=tireNameText.getText();
+					String amountPurchase=amountField.getText();
+					String priceUnitPurchase=priceText.getText();
+					String totalPurchase=totalText.getText();
+					String taxPurchase=taxText.getText();
+					String afterTaxPurchase=afterTaxText.getText();
+					String namePurchase=nameField.getText();
+					String lastNamePurchase=lastNameField.getText();
+					String phonePurchase=phoneField.getText();
+					String emailPurchase=emailField.getText();
+					String adressPurchase=adressField.getText();
+					String cityPurchase=cityField.getText();
+					String provincePurchase=provinceField.getText();
+					String paymentPurchase=paymentCombo.getSelectedItem().toString();
+					String dayPurchase=dayBox.getSelectedItem().toString();
+					//send all these to pdfwriter/database witer
+					
+				}}
 			}
 		});
 //		JPanel searchTab = new JPanel();

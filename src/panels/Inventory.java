@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -44,6 +46,14 @@ public class Inventory extends JPanel{
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(139, 35, 97, 30);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==btnNewButton)
+					System.out.println("CKC");
+			}
+		});
 		searchTab.add(btnNewButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -52,23 +62,24 @@ public class Inventory extends JPanel{
 		JTable table = new JTable(tableModel);
 	
 		tableModel.addColumn("Barcode");
+		tableModel.addColumn("Name");
 		tableModel.addColumn("Amount Available");
 		tableModel.addColumn("Price per Tire");
-		tableModel.insertRow(0, new Object[] {10020,23,2});
-		tableModel.insertRow(0, new Object[] {100222230,23,2});
+		tableModel.insertRow(0, new Object[] {10020,"Winter",23,2});
+		tableModel.insertRow(0, new Object[] {100222230,"Summer",23,2});
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example
 	            // print first column value from selected row
-	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
-	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
-	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
-	        	cardPanel.add(new Purchase(barcode,amount,price), "Purchase");
+//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
+//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
+//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
+//	        	cardPanel.add(new Purchase(barcode,amount,price), "Purchase");
 	        	c.show(cardPanel, "Purchase");
 	        	
 	   
 	        	
-	            System.out.println(barcode+"  "+amount+"  "+price);
+//	            System.out.println(barcode+"  "+amount+"  "+price);
 	        	
 	        }
 	    });

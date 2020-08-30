@@ -49,6 +49,15 @@ import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JEditorPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class kkk {
 
@@ -56,6 +65,14 @@ public class kkk {
 	private ImageLoader loader;
 	private JTextField txtBarcode;
 	private JTable table;
+	private JTextField amountField;
+	private JTextField nameField;
+	private JTextField phoneField;
+	private JTextField adressField;
+	private JTextField cityField;
+	private JTextField provinceField;
+	private JTextField emailField;
+	private JTextField lastNameField;
 	/**
 	 * Launch the application.
 	 */
@@ -253,23 +270,220 @@ public class kkk {
 		cardPanel.add(new Inventory(cardPanel,c), "Inventory");
 //		inventoryCardPanel.setLayout(new BorderLayout(0, 0));
 		
-//		JPanel purchasePanel = new JPanel();
-//		purchasePanel.setBackground(new Color(82,94,104));
-//		cardPanel.add(purchasePanel, "Purchase");
-//		purchasePanel.setLayout(null);
-//		
-//		JLabel barcodePurchase = new JLabel("Barcode:");
-//		barcodePurchase.setLabelFor(purchasePanel);
-//		barcodePurchase.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		barcodePurchase.setOpaque(true);
-//		barcodePurchase.setBackground(SystemColor.controlLtHighlight);
-//		barcodePurchase.setBounds(45, 56, 79, 26);
-//		purchasePanel.add(barcodePurchase);
-//		
-//		JLabel lblNewLabel = new JLabel("New label");
-//		lblNewLabel.setBounds(136, 56, 125, 26);
-//		purchasePanel.add(lblNewLabel);
+		JPanel purchasePanel = new JPanel();
+		purchasePanel.setBackground(new Color(82,94,104));
+		cardPanel.add(purchasePanel, "Purchase");
 		
+		Canvas canvas_1 = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
+		}};
+		canvas_1.setLocation(7, 7);
+		canvas_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getSource()==canvas_1)
+					c.show(cardPanel, "Inventory");
+			}
+		});
+		purchasePanel.setLayout(null);
+		canvas_1.setSize(56,25);
+		purchasePanel.add(canvas_1);
+		
+		JLabel barcodeLabel = new JLabel("Barcode");
+		barcodeLabel.setOpaque(true);
+		barcodeLabel.setBackground(SystemColor.inactiveCaption);
+		barcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barcodeLabel.setBounds(7, 57, 81, 25);
+		purchasePanel.add(barcodeLabel);
+		
+		JLabel barcodeText = new JLabel("Barcode");
+		barcodeText.setEnabled(false);
+		barcodeText.setOpaque(true);
+		barcodeText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barcodeText.setBackground(SystemColor.inactiveCaption);
+		barcodeText.setBounds(100, 57, 81, 25);
+		purchasePanel.add(barcodeText);
+		
+		JLabel amountLabel = new JLabel("Amount");
+		amountLabel.setOpaque(true);
+		amountLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		amountLabel.setBackground(SystemColor.inactiveCaption);
+		amountLabel.setBounds(7, 97, 81, 25);
+		purchasePanel.add(amountLabel);
+		
+		amountField = new JTextField();
+	
+
+	
+		amountField.setBounds(100, 99, 81, 25);
+		purchasePanel.add(amountField);
+		amountField.setColumns(10);
+		
+		JLabel totalLabel = new JLabel("Total");
+		totalLabel.setOpaque(true);
+		totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		totalLabel.setBackground(SystemColor.inactiveCaption);
+		totalLabel.setBounds(7, 139, 81, 25);
+		purchasePanel.add(totalLabel);
+	
+		JLabel totalText = new JLabel("Total");
+		totalText.setOpaque(true);
+		totalText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		totalText.setEnabled(false);
+		totalText.setBackground(SystemColor.inactiveCaption);
+		totalText.setBounds(100, 139, 81, 25);
+		purchasePanel.add(totalText);
+	
+		JLabel taxLabel = new JLabel("Tax");
+		taxLabel.setOpaque(true);
+		taxLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		taxLabel.setBackground(SystemColor.inactiveCaption);
+		taxLabel.setBounds(7, 177, 81, 25);
+		purchasePanel.add(taxLabel);
+	
+		JLabel taxText = new JLabel("Tax");
+		taxText.setOpaque(true);
+		taxText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		taxText.setEnabled(false);
+		taxText.setBackground(SystemColor.inactiveCaption);
+		taxText.setBounds(100, 177, 81, 25);
+		purchasePanel.add(taxText);
+		
+		JLabel afterTaxLabel = new JLabel("After Tax");
+		afterTaxLabel.setOpaque(true);
+		afterTaxLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		afterTaxLabel.setBackground(SystemColor.inactiveCaption);
+		afterTaxLabel.setBounds(7, 216, 81, 25);
+		purchasePanel.add(afterTaxLabel);
+		
+		JLabel afterTaxText = new JLabel("After Tax");
+		afterTaxText.setOpaque(true);
+		afterTaxText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		afterTaxText.setEnabled(false);
+		afterTaxText.setBackground(SystemColor.inactiveCaption);
+		afterTaxText.setBounds(100, 216, 81, 25);
+		purchasePanel.add(afterTaxText);
+		amountField.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				if( e.getSource()==amountField) {
+					totalText.setText(Integer.parseInt(amountField.getText())*2.3+"");
+					taxText.setText(Double.parseDouble(totalText.getText())*5/100+"");
+					afterTaxText.setText(Double.parseDouble(totalText.getText())+Double.parseDouble(taxText.getText())+"");
+				}}
+		});
+		JLabel firstNameLabel = new JLabel("First Name");
+		firstNameLabel.setOpaque(true);
+		firstNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		firstNameLabel.setBackground(SystemColor.inactiveCaption);
+		firstNameLabel.setBounds(7, 254, 91, 25);
+		purchasePanel.add(firstNameLabel);
+		
+		nameField = new JTextField();
+		nameField.setColumns(10);
+		nameField.setBounds(100, 254, 81, 25);
+		purchasePanel.add(nameField);
+		
+		JLabel phoneLabel = new JLabel("Phone");
+		phoneLabel.setOpaque(true);
+		phoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		phoneLabel.setBackground(SystemColor.inactiveCaption);
+		phoneLabel.setBounds(7, 293, 81, 25);
+		purchasePanel.add(phoneLabel);
+		
+		phoneField = new JTextField();
+		phoneField.setColumns(10);
+		phoneField.setBounds(100, 293, 81, 25);
+		purchasePanel.add(phoneField);
+		
+		JLabel adressLabel = new JLabel("Adress");
+		adressLabel.setOpaque(true);
+		adressLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		adressLabel.setBackground(SystemColor.inactiveCaption);
+		adressLabel.setBounds(7, 331, 81, 25);
+		purchasePanel.add(adressLabel);
+		
+		adressField = new JTextField();
+		adressField.setColumns(10);
+		adressField.setBounds(100, 331, 81, 25);
+		purchasePanel.add(adressField);
+		
+		JLabel cityLabel = new JLabel("City");
+		cityLabel.setOpaque(true);
+		cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		cityLabel.setBackground(SystemColor.inactiveCaption);
+		cityLabel.setBounds(202, 331, 81, 25);
+		purchasePanel.add(cityLabel);
+		
+		cityField = new JTextField();
+		cityField.setColumns(10);
+		cityField.setBounds(295, 331, 81, 25);
+		purchasePanel.add(cityField);
+		
+		JLabel provinceLabel = new JLabel("Province");
+		provinceLabel.setOpaque(true);
+		provinceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		provinceLabel.setBackground(SystemColor.inactiveCaption);
+		provinceLabel.setBounds(393, 331, 81, 25);
+		purchasePanel.add(provinceLabel);
+		
+		provinceField = new JTextField();
+		provinceField.setColumns(10);
+		provinceField.setBounds(486, 331, 81, 25);
+		purchasePanel.add(provinceField);
+		
+		JLabel emailLabel = new JLabel("Email");
+		emailLabel.setOpaque(true);
+		emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		emailLabel.setBackground(SystemColor.inactiveCaption);
+		emailLabel.setBounds(202, 293, 81, 25);
+		purchasePanel.add(emailLabel);
+		
+		emailField = new JTextField();
+		emailField.setColumns(10);
+		emailField.setBounds(295, 293, 81, 25);
+		purchasePanel.add(emailField);
+		
+		JLabel paymentLabel = new JLabel("Payment");
+		paymentLabel.setOpaque(true);
+		paymentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		paymentLabel.setBackground(SystemColor.inactiveCaption);
+		paymentLabel.setBounds(7, 371, 81, 25);
+		purchasePanel.add(paymentLabel);
+		
+		JComboBox paymentCombo = new JComboBox();
+		paymentCombo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		paymentCombo.setModel(new DefaultComboBoxModel(new String[] {"Cash", "Credit", "e-Transfer"}));
+		paymentCombo.setBounds(100, 374, 81, 22);
+		purchasePanel.add(paymentCombo);
+		
+		JButton purchaseButton = new JButton("Purchase");
+		
+		purchaseButton.setForeground(SystemColor.controlText);
+//		purchaseButton.setBackground(SystemColor.activeCaption);
+		purchaseButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		purchaseButton.setBounds(186, 428, 177, 25);
+		purchasePanel.add(purchaseButton);
+		
+		lastNameField = new JTextField();
+		lastNameField.setColumns(10);
+		lastNameField.setBounds(295, 256, 81, 25);
+		purchasePanel.add(lastNameField);
+		
+		JLabel lastNameLabel = new JLabel("Last Name");
+		lastNameLabel.setOpaque(true);
+		lastNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lastNameLabel.setBackground(SystemColor.inactiveCaption);
+		lastNameLabel.setBounds(203, 254, 91, 25);
+		purchasePanel.add(lastNameLabel);
+		purchaseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==purchaseButton) {
+					
+					String barcodePurchase=barcodeText.getText();
+				}
+			}
+		});
 //		JPanel searchTab = new JPanel();
 //		searchTab.setBackground(Color.WHITE);
 //		searchTab.setPreferredSize(new Dimension(2000, 100));

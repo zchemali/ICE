@@ -74,6 +74,8 @@ public class kkk {
 	private JTextField provinceField;
 	private JTextField emailField;
 	private JTextField lastNameField;
+	private JTextField txtArcode;
+	private JTable viewTable;
 	/**
 	 * Launch the application.
 	 */
@@ -211,6 +213,7 @@ public class kkk {
 		inventoryEditPanel.add(editIconCanvas);
 		
 		JLabel EditLabel = new JLabel("Edit Inventory");
+	
 		EditLabel.setForeground(SystemColor.menu);
 		EditLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		inventoryEditPanel.add(EditLabel);
@@ -241,11 +244,6 @@ public class kkk {
 		canvaogoutIconCanvas.setEnabled(false);
 		canvaogoutIconCanvas.setSize(20, 20);
 		logoutPanel.add(canvaogoutIconCanvas);
-		
-		JLabel logoutLabel = new JLabel("Logout");
-		logoutLabel.setForeground(SystemColor.menu);
-		logoutLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
-		logoutPanel.add(logoutLabel);
 		
 		JPanel cardPanel = new JPanel();
 		cardPanel.setMinimumSize(new Dimension(2000, 660));
@@ -621,10 +619,44 @@ public class kkk {
 		JPanel inventoryEditCardPanel = new JPanel();
 		inventoryEditCardPanel.setBackground(new Color(82,94,104));
 		cardPanel.add(inventoryEditCardPanel, "Edit");
+		inventoryEditCardPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("edit");
-		lblNewLabel_2.setForeground(SystemColor.info);
-		inventoryEditCardPanel.add(lblNewLabel_2);
+		JPanel searchPanel = new JPanel();
+		searchPanel.setPreferredSize(new Dimension(2000, 100));
+		inventoryEditCardPanel.add(searchPanel, BorderLayout.NORTH);
+		searchPanel.setLayout(null);
+		
+		Canvas plusCanvas = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/google-plus.png"),0,0, 40,40, null);
+			}
+		};
+		plusCanvas.setSize(40, 40);
+		plusCanvas.setBounds(10, 10, 50, 42);
+		searchPanel.add(plusCanvas);
+		
+		txtArcode = new JTextField();
+		txtArcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtArcode.setText("Barcode");
+		txtArcode.setBounds(192, 23, 116, 29);
+		searchPanel.add(txtArcode);
+		txtArcode.setColumns(10);
+		
+		JButton searchBtn = new JButton("Search");
+		searchBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		searchBtn.setBounds(83, 25, 97, 27);
+		searchPanel.add(searchBtn);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		inventoryEditCardPanel.add(scrollPane_1, BorderLayout.CENTER);
+		DefaultTableModel tableModel2 = new DefaultTableModel();
+		viewTable = new JTable(tableModel2);
+		tableModel2.addColumn("Barcode");
+		tableModel2.addColumn("Name");
+		tableModel2.addColumn("Amount Available");
+		tableModel2.addColumn("Price per Tire");
+		
+		scrollPane_1.setViewportView(viewTable);
 		
 		JPanel settingsCardPanel = new JPanel();
 		settingsCardPanel.setBackground(new Color(82,94,104));
@@ -638,6 +670,14 @@ public class kkk {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource()==inventoryLabel) {
 					c.show(cardPanel, "Inventory");
+				}
+			}
+		});
+		EditLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getSource()==EditLabel) {
+					c.show(cardPanel, "Edit");
 				}
 			}
 		});

@@ -266,10 +266,10 @@ public class kkk {
 //		canvas_1.setSize(1800, 1000);
 //		home.add(canvas_1);
 		
-//		JPanel inventoryCardPanel = new JPanel();
-//		inventoryCardPanel.setBackground(new Color(82,94,104));
-		cardPanel.add(new Inventory(cardPanel,c), "Inventory");
-//		inventoryCardPanel.setLayout(new BorderLayout(0, 0));
+		JPanel inventoryCardPanel = new JPanel();
+		inventoryCardPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(inventoryCardPanel, "Inventory");
+		inventoryCardPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel purchasePanel = new JPanel();
 		purchasePanel.setBackground(new Color(82,94,104));
@@ -557,59 +557,64 @@ public class kkk {
 				}}
 			}
 		});
-//		JPanel searchTab = new JPanel();
-//		searchTab.setBackground(Color.WHITE);
-//		searchTab.setPreferredSize(new Dimension(2000, 100));
-//		inventoryCardPanel.add(searchTab,"North");
-//		searchTab.setLayout(null);
-//		
-//		txtBarcode = new JTextField();
-//		txtBarcode.setText("Barcode");
-//		txtBarcode.addMouseListener(new MouseAdapter() {
-//			public void mouseClicked(MouseEvent e) {
-//				if(e.getSource()==txtBarcode) {
-//					txtBarcode.setText("");
-//				}
-//		}});
-//		txtBarcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		txtBarcode.setBounds(257, 35, 116, 30);
-//		txtBarcode.setBackground(Color.LIGHT_GRAY);
-//		searchTab.add(txtBarcode);
-//		txtBarcode.setColumns(10);
-//		
-//		JButton btnNewButton = new JButton("Search");
-//		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		btnNewButton.setBounds(139, 35, 97, 30);
-//		searchTab.add(btnNewButton);
-//		
-//		JScrollPane scrollPane = new JScrollPane();
-//		inventoryCardPanel.add(scrollPane, BorderLayout.CENTER);
-//		DefaultTableModel tableModel = new DefaultTableModel();
-//		JTable table = new JTable(tableModel);
-//	
-//		tableModel.addColumn("Barcode");
-//		tableModel.addColumn("Amount Available");
-//		tableModel.addColumn("Price per Tire");
-//		tableModel.insertRow(0, new Object[] {10020,23,2});
-//		tableModel.insertRow(0, new Object[] {100222230,23,2});
-//		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//	        public void valueChanged(ListSelectionEvent event) {
-//	            // do some actions here, for example
-//	            // print first column value from selected row
-//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
-//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
-//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
-//	        	
-//	        	c.show(cardPanel, "Purchase");
-//	        	
-//	   
-//	        	
-//	            System.out.println(barcode+"  "+amount+"  "+price);
-//	        	
-//	        }
-//	    });
-//		scrollPane.setViewportView(table);
-//		
+		JPanel searchTab = new JPanel();
+		searchTab.setBackground(Color.WHITE);
+		searchTab.setPreferredSize(new Dimension(2000, 100));
+		inventoryCardPanel.add(searchTab,"North");
+		searchTab.setLayout(null);
+		
+		txtBarcode = new JTextField();
+		txtBarcode.setText("Barcode");
+		txtBarcode.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getSource()==txtBarcode) {
+					txtBarcode.setText("");
+				}
+		}});
+		txtBarcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtBarcode.setBounds(257, 35, 116, 30);
+		txtBarcode.setBackground(Color.LIGHT_GRAY);
+		searchTab.add(txtBarcode);
+		txtBarcode.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Search");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton.setBounds(139, 35, 97, 30);
+		searchTab.add(btnNewButton);
+		
+		JButton clearBtn = new JButton("Clear");
+		clearBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		clearBtn.setBounds(513, 35, 97, 30);
+		searchTab.add(clearBtn);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		inventoryCardPanel.add(scrollPane, BorderLayout.CENTER);
+		DefaultTableModel tableModel = new DefaultTableModel();
+		JTable table = new JTable(tableModel);
+	
+		tableModel.addColumn("Barcode");
+		tableModel.addColumn("Amount Available");
+		tableModel.addColumn("Price per Tire");
+		tableModel.insertRow(0, new Object[] {10020,23,2});
+		tableModel.insertRow(0, new Object[] {100222230,23,2});
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
+	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
+	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
+	        	
+	        	c.show(cardPanel, "Purchase");
+	        	
+	   
+	        	
+	            System.out.println(barcode+"  "+amount+"  "+price);
+	        	
+	        }
+	    });
+		scrollPane.setViewportView(table);
+		
 		
 		
 		

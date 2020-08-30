@@ -19,8 +19,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import com.mongodb.client.MongoDatabase;
+
+import database.InventoryFindOne;
+import database.InventoryLoader;
+
 public class Inventory extends JPanel{
-	public Inventory(JPanel cardPanel, CardLayout c) {
+	public Inventory(JPanel cardPanel, CardLayout c,MongoDatabase db) {
 		setBackground(new Color(82,94,104));
 		setLayout(new BorderLayout(0, 0));
 		JPanel searchTab = new JPanel();
@@ -46,15 +51,12 @@ public class Inventory extends JPanel{
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(139, 35, 97, 30);
-		btnNewButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource()==btnNewButton)
-					System.out.println("CKC");
-			}
-		});
 		searchTab.add(btnNewButton);
+		
+		JButton clearBtn = new JButton("Clear");
+		clearBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		clearBtn.setBounds(513, 35, 97, 30);
+		searchTab.add(clearBtn);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -65,8 +67,29 @@ public class Inventory extends JPanel{
 		tableModel.addColumn("Name");
 		tableModel.addColumn("Amount Available");
 		tableModel.addColumn("Price per Tire");
-		tableModel.insertRow(0, new Object[] {10020,"Winter",23,2});
-		tableModel.insertRow(0, new Object[] {100222230,"Summer",23,2});
+		new InventoryLoader(tableModel, db);
+		//pass the tableModel to constructo of inventory loader
+	btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==btnNewButton)
+					tableModel.setRowCount(0);
+				new InventoryFindOne(tableModel,db,Integer.parseInt(txtBarcode.getText()));
+			}
+		});
+	clearBtn.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource()==clearBtn) {
+				tableModel.setRowCount(0);
+				new InventoryLoader(tableModel, db);
+			}
+		}
+	});
+//		tableModel.insertRow(0, new Object[] {10020,"Winter",23,2});
+//		tableModel.insertRow(0, new Object[] {100222230,"Summer",23,2});
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example

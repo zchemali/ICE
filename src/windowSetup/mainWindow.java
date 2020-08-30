@@ -132,7 +132,7 @@ public class mainWindow  {
 		JPanel inventoryCheckPanel = new JPanel();
 		JLabel l=new JLabel("THIS IS INVENTORY bro");
 		inventoryCheckPanel.add(l);
-		cardPane.add(new Inventory(cardPane, c),"Inventory");
+		cardPane.add(new Inventory(cardPane, c,db),"Inventory");
 		
 		JPanel inventoryEditPanel = new JPanel();
 		cardPane.add(inventoryEditPanel,"Edit");

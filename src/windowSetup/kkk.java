@@ -77,6 +77,7 @@ public class kkk {
 	private JTextField lastNameField;
 	private JTextField txtArcode;
 	private JTable viewTable;
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -270,14 +271,32 @@ public class kkk {
 		editPanel.setLayout(null);
 		
 		JLabel barLabel = new JLabel("Barcode");
+		barLabel.setBackground(SystemColor.inactiveCaption);
 		barLabel.setOpaque(true);
 		barLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		barLabel.setBounds(36, 62, 74, 32);
 		editPanel.add(barLabel);
 		
-		Canvas canvas_2 = new Canvas();
+		Canvas canvas_2 = new Canvas() {
+			public void paint( Graphics g) {
+				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
+			}
+		};
+		canvas_2.setSize(50, 50);
 		canvas_2.setBounds(10, 10, 50, 46);
 		editPanel.add(canvas_2);
+		
+		JLabel tireName = new JLabel("Tire Name");
+		tireName.setOpaque(true);
+		tireName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireName.setBackground(SystemColor.inactiveCaption);
+		tireName.setBounds(36, 118, 96, 32);
+		editPanel.add(tireName);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(144, 122, 116, 29);
+		editPanel.add(textField);
 		
 		JPanel inventoryCardPanel = new JPanel();
 		inventoryCardPanel.setBackground(new Color(82,94,104));
@@ -730,6 +749,14 @@ public class kkk {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource()==EditLabel) {
 					c.show(cardPanel, "EditMain");
+				}
+			}
+		});
+		canvas_2.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getSource()==canvas_2) {
+					c.show(cardPanel, "EditMain"
+							);
 				}
 			}
 		});

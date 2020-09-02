@@ -36,6 +36,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 
+import database.InventoryLoader;
 import imageHandle.ImageLoader;
 import panels.Inventory;
 import panels.home;
@@ -263,6 +264,20 @@ public class kkk {
 //		};
 //		canvas_1.setSize(1800, 1000);
 //		home.add(canvas_1);
+		JPanel editPanel =new JPanel();
+		editPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(editPanel, "Edit");
+		editPanel.setLayout(null);
+		
+		JLabel barLabel = new JLabel("Barcode");
+		barLabel.setOpaque(true);
+		barLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barLabel.setBounds(36, 62, 74, 32);
+		editPanel.add(barLabel);
+		
+		Canvas canvas_2 = new Canvas();
+		canvas_2.setBounds(10, 10, 50, 46);
+		editPanel.add(canvas_2);
 		
 		JPanel inventoryCardPanel = new JPanel();
 		inventoryCardPanel.setBackground(new Color(82,94,104));
@@ -618,7 +633,7 @@ public class kkk {
 		
 		JPanel inventoryEditCardPanel = new JPanel();
 		inventoryEditCardPanel.setBackground(new Color(82,94,104));
-		cardPanel.add(inventoryEditCardPanel, "Edit");
+		cardPanel.add(inventoryEditCardPanel, "EditMain");
 		inventoryEditCardPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel searchPanel = new JPanel();
@@ -632,29 +647,66 @@ public class kkk {
 			}
 		};
 		plusCanvas.setSize(40, 40);
-		plusCanvas.setBounds(10, 10, 50, 42);
+		plusCanvas.setBounds(28, 0, 50, 42);
 		searchPanel.add(plusCanvas);
 		
 		txtArcode = new JTextField();
+		txtArcode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ( e.getSource()==txtArcode) {
+					txtArcode.setText("");
+				}
+			}
+		});
 		txtArcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtArcode.setText("Barcode");
-		txtArcode.setBounds(192, 23, 116, 29);
+		txtArcode.setBounds(296, 27, 100, 30);
 		searchPanel.add(txtArcode);
 		txtArcode.setColumns(10);
 		
 		JButton searchBtn = new JButton("Search");
 		searchBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		searchBtn.setBounds(83, 25, 97, 27);
+		searchBtn.setBounds(184, 27, 100, 30);
 		searchPanel.add(searchBtn);
+		
+		JLabel newLabel = new JLabel("New Item");
+		newLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		newLabel.setBounds(12, 41, 90, 16);
+		searchPanel.add(newLabel);
+		
+		JButton clrBtn = new JButton("Clear");
+		clrBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		clrBtn.setBounds(491, 27, 100, 30);
+		searchPanel.add(clrBtn);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		inventoryEditCardPanel.add(scrollPane_1, BorderLayout.CENTER);
 		DefaultTableModel tableModel2 = new DefaultTableModel();
 		viewTable = new JTable(tableModel2);
+	
 		tableModel2.addColumn("Barcode");
 		tableModel2.addColumn("Name");
 		tableModel2.addColumn("Amount Available");
 		tableModel2.addColumn("Price per Tire");
+		tableModel2.insertRow(0, new Object[] {122,"Summ",22,2.3});
+//		new InventoryLoader(tableModel2, db);
+		viewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
+//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
+//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
+//	        	cardPanel.add(new Purchase(barcode,amount,price), "Purchase");
+	        	c.show(cardPanel, "Edit");
+	        	
+	   
+	        	
+//	            System.out.println(barcode+"  "+amount+"  "+price);
+	        	
+	        }
+	    });
 		
 		scrollPane_1.setViewportView(viewTable);
 		
@@ -677,7 +729,7 @@ public class kkk {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource()==EditLabel) {
-					c.show(cardPanel, "Edit");
+					c.show(cardPanel, "EditMain");
 				}
 			}
 		});

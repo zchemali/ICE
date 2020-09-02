@@ -53,7 +53,7 @@ public class Inventory extends JPanel{
 		btnNewButton.setBounds(139, 35, 97, 30);
 		searchTab.add(btnNewButton);
 		
-		JButton clearBtn = new JButton("Clear");
+		JButton clearBtn = new JButton("Refresh");
 		clearBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		clearBtn.setBounds(513, 35, 97, 30);
 		searchTab.add(clearBtn);
@@ -75,7 +75,7 @@ public class Inventory extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()==btnNewButton)
 					tableModel.setRowCount(0);
-				new InventoryFindOne(tableModel,db,Integer.parseInt(txtBarcode.getText()));
+				new InventoryFindOne(tableModel,db,Long.parseLong(txtBarcode.getText()));
 			}
 		});
 	clearBtn.addActionListener(new ActionListener() {
@@ -94,10 +94,11 @@ public class Inventory extends JPanel{
 	        public void valueChanged(ListSelectionEvent event) {
 	            // do some actions here, for example
 	            // print first column value from selected row
-//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
-//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
-//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
-//	        	cardPanel.add(new Purchase(barcode,amount,price), "Purchase");
+	        	Long barcode= (Long) table.getValueAt(table.getSelectedRow(), 0);
+	        	String tireName=(String) table.getValueAt(table.getSelectedRow(), 1);
+	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 2);
+	        	Double price= (Double) table.getValueAt(table.getSelectedRow(), 3);
+	        	cardPanel.add(new Purchase(barcode,amount,price,tireName,c,cardPanel,db,tableModel), "Purchase");
 	        	c.show(cardPanel, "Purchase");
 	        	
 	   
@@ -108,5 +109,4 @@ public class Inventory extends JPanel{
 	    });
 		scrollPane.setViewportView(table);
 	}
-
 }

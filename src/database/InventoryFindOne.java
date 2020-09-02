@@ -12,7 +12,7 @@ import com.sun.xml.internal.txw2.Document;
 
 public class InventoryFindOne {
 	
-	public InventoryFindOne (DefaultTableModel tableModel,MongoDatabase db,int barcode) {
+	public InventoryFindOne (DefaultTableModel tableModel,MongoDatabase db,Long barcode) {
 		MongoCollection<org.bson.Document> collection = db.getCollection("Inventory");
 //		MongoCursor<org.bson.Document> cursor = collection.find().iterator();
 		Bson bsonFilter = Filters.eq("Barcode", barcode);

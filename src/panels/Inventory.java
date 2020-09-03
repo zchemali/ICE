@@ -99,7 +99,7 @@ public class Inventory extends JPanel{
 	        	String tireName=(String) table.getValueAt(table.getSelectedRow(), 1);
 	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 2);
 	        	Double price= (Double) table.getValueAt(table.getSelectedRow(), 3);
-	        	cardPanel.add(new Purchase(barcode,amount,price,tireName,c,cardPanel,db,tableModel), "Purchase");
+	        	cardPanel.add(new Purchase(barcode,amount,price,tireName,c,cardPanel,db), "Purchase");
 	        	c.show(cardPanel, "Purchase");
 	        	
 	   

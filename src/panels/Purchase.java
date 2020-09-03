@@ -30,28 +30,12 @@ import imageHandle.ImageLoader;
 
 public class Purchase extends JPanel {
 
-	public Purchase(Long barcode,Integer prevAmount, Double price,String tireName,CardLayout c,JPanel cardPanel,MongoDatabase db,DefaultTableModel tableModel) {
-		ImageLoader loader =new ImageLoader();
+	public Purchase(Long barcode,Integer prevAmount, Double price,String tireName,CardLayout c,JPanel cardPanel,MongoDatabase db) {
 		setBackground(new Color(82,94,104));
 		setLayout(null);
 		
 		
-		Canvas canvas_1 = new Canvas() {
 	
-			public void paint (Graphics g) {
-				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
-		}};
-		canvas_1.setSize(30, 30);
-		canvas_1.setLocation(7, 7);
-		canvas_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getSource()==canvas_1)
-					c.show(cardPanel, "Inventory");
-			}
-		});
-		canvas_1.setSize(56,25);
-		add(canvas_1);
 		
 		JLabel barcodeLabel = new JLabel("Barcode");
 		barcodeLabel.setOpaque(true);

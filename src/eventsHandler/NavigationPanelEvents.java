@@ -12,6 +12,7 @@ import com.mongodb.client.MongoDatabase;
 
 import navigationPannel.NavigationPannel;
 import panels.Inventory;
+import panels.InventoryEdit;
 /**
  * This class handles all of the events that occur on the {@link #NavigationPannel}
  * 
@@ -54,7 +55,9 @@ public class NavigationPanelEvents implements MouseListener {
 			c.show(cardPanel,"Inventory");
 			}
 		else if(e.getSource()==inventoryEdit)
-			c.show(cardPanel, "Edit");
+			{cardPanel.add(new InventoryEdit(cardPanel, c, db),"InventoryEdit");
+			c.show(cardPanel, "InventoryEdit");
+			}
 		else if(e.getSource()==settings)
 			c.show(cardPanel, "Settings");
 		else if (e.getSource()==logout) {

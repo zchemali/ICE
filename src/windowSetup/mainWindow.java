@@ -118,31 +118,31 @@ public class mainWindow  {
 		//need to make border of two sides fixed
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		
-		JPanel cardPane = new JPanel();
-		cardPane.setMinimumSize(new Dimension(2000,HEIGHT-HEADERHEIGHT));
-		splitPane.setRightComponent(cardPane);
+		JPanel cardPanel = new JPanel();
+		cardPanel.setMinimumSize(new Dimension(2000,HEIGHT-HEADERHEIGHT));
+		splitPane.setRightComponent(cardPanel);
 		CardLayout c= new CardLayout(0,0);
 	
-		cardPane.setLayout(c);
+		cardPanel.setLayout(c);
 		
 		JPanel homePanel = new JPanel();
 		
-		cardPane.add(homePanel,"Home");
+		cardPanel.add(homePanel,"Home");
 		
-		JPanel inventoryCheckPanel = new JPanel();
-		JLabel l=new JLabel("THIS IS INVENTORY bro");
-		inventoryCheckPanel.add(l);
-		cardPane.add(new Inventory(cardPane, c,db),"Inventory");
+//		JPanel inventoryCheckPanel = new JPanel();
+//		JLabel l=new JLabel("THIS IS INVENTORY bro");
+//		inventoryCheckPanel.add(l);
+//		cardPanel.add(new Inventory(cardPanel, c,db),"Inventory");
 		
-		JPanel inventoryEditPanel = new JPanel();
-		cardPane.add(inventoryEditPanel,"Edit");
-		
+//		JPanel inventoryEditPanel = new JPanel();
+//		cardPanel.add(inventoryEditPanel,"Edit");
+//		
 		JPanel settingsPanel = new JPanel();
 		
-		cardPane.add(settingsPanel,"Settings");
+		cardPanel.add(settingsPanel,"Settings");
 		
 		//NavigationPannel np=new NavigationPannel(WIDTH/4,HEIGHT-28,)
-		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPane,c,db));
+		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPanel,c,db));
 	
 	}
 }

@@ -698,15 +698,6 @@ public class kkk {
 		inventoryEditCardPanel.add(searchPanel, BorderLayout.NORTH);
 		searchPanel.setLayout(null);
 		
-		Canvas plusCanvas = new Canvas() {
-			public void paint (Graphics g) {
-				g.drawImage(loader.getImage("/google-plus.png"),0,0, 40,40, null);
-			}
-		};
-		plusCanvas.setSize(40, 40);
-		plusCanvas.setBounds(28, 0, 50, 42);
-		searchPanel.add(plusCanvas);
-		
 		txtArcode = new JTextField();
 		txtArcode.addMouseListener(new MouseAdapter() {
 			@Override
@@ -727,15 +718,15 @@ public class kkk {
 		searchBtn.setBounds(184, 27, 100, 30);
 		searchPanel.add(searchBtn);
 		
-		JLabel newLabel = new JLabel("New Item");
-		newLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		newLabel.setBounds(12, 41, 90, 16);
-		searchPanel.add(newLabel);
-		
 		JButton clrBtn = new JButton("Clear");
 		clrBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		clrBtn.setBounds(491, 27, 100, 30);
 		searchPanel.add(clrBtn);
+		
+		JButton addNew = new JButton("New");
+		addNew.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		addNew.setBounds(35, 27, 100, 30);
+		searchPanel.add(addNew);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		inventoryEditCardPanel.add(scrollPane_1, BorderLayout.CENTER);

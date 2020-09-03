@@ -8,7 +8,10 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.mongodb.client.MongoDatabase;
+
 import navigationPannel.NavigationPannel;
+import panels.Inventory;
 /**
  * This class handles all of the events that occur on the {@link #NavigationPannel}
  * 
@@ -18,6 +21,7 @@ import navigationPannel.NavigationPannel;
 public class NavigationPanelEvents implements MouseListener {
 	private JPanel cardPanel,home, inventoryCheck, inventoryEdit, settings, logout;
 	CardLayout c;
+	MongoDatabase db;
 	/**
 	 * 
 	 * @param c card layout which is passed from {@link #mainWindow}
@@ -27,9 +31,10 @@ public class NavigationPanelEvents implements MouseListener {
 	 * @param inventoryEdit this is one of the navigation panels and passed from {@link #NavigationPannel}
 	 * @param settings this is one of the navigation panels and passed from {@link #NavigationPannel}
 	 * @param logout this is one of the navigation panels and passed from {@link #NavigationPannel}
+	 * @param db 
 	 * @param navigationPannel 
 	 */
- public NavigationPanelEvents(CardLayout c,JPanel cardPanel,JPanel home, JPanel inventoryCheck, JPanel  inventoryEdit, JPanel settings,JPanel  logout) {
+ public NavigationPanelEvents(CardLayout c,JPanel cardPanel,JPanel home, JPanel inventoryCheck, JPanel  inventoryEdit, JPanel settings,JPanel  logout, MongoDatabase db) {
 	 this.cardPanel=cardPanel;
 	 this.home=home;
 	 this.inventoryCheck=inventoryCheck;
@@ -37,13 +42,17 @@ public class NavigationPanelEvents implements MouseListener {
 	 this.settings=settings;
 	 this.logout=logout;
 	 this.c=c;
+	 this.db=db;
 }
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource()==home)
 			c.show(cardPanel, "Home");
 		else if(e.getSource()==inventoryCheck)
+			{
+			cardPanel.add(new Inventory(cardPanel, c, db),"Inventory");
 			c.show(cardPanel,"Inventory");
+			}
 		else if(e.getSource()==inventoryEdit)
 			c.show(cardPanel, "Edit");
 		else if(e.getSource()==settings)

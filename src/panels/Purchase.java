@@ -37,15 +37,11 @@ public class Purchase extends JPanel {
 		
 		
 		Canvas canvas_1 = new Canvas() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+	
 			public void paint (Graphics g) {
 				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
 		}};
-		canvas_1.setSize(22, 22);
+		canvas_1.setSize(30, 30);
 		canvas_1.setLocation(7, 7);
 		canvas_1.addMouseListener(new MouseAdapter() {
 			@Override

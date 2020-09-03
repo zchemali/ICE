@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -62,7 +63,7 @@ public class Inventory extends JPanel{
 		add(scrollPane, BorderLayout.CENTER);
 		DefaultTableModel tableModel = new DefaultTableModel();
 		JTable table = new JTable(tableModel);
-	
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableModel.addColumn("Barcode");
 		tableModel.addColumn("Name");
 		tableModel.addColumn("Amount Available");

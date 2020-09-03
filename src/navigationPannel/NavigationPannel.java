@@ -21,6 +21,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
+import com.mongodb.client.MongoDatabase;
 
 import eventsHandler.NavigationPanelEvents;
 import imageHandle.ImageLoader;
@@ -42,8 +43,9 @@ public class NavigationPannel extends JPanel {
 	 * @param height still not sure if needed
 	 * @param cardPane this is the parent panel of right side of splitPane it is passed to the event class {@link #NavigationPanelEvents}
 	 * @param c1 this is the card layout of the parent panel and it is passed to the event class {@link #NavigationPanelEvents}
+	 * @param db 
 	 */
-	public NavigationPannel(int width, int height, JPanel cardPane, CardLayout c1) {
+	public NavigationPannel(int width, int height, JPanel cardPane, CardLayout c1, MongoDatabase db) {
 		loader = new ImageLoader();
 		this.setLayout(new GridBagLayout());
 		this.setSize((new Dimension(width, height)));
@@ -148,7 +150,7 @@ public class NavigationPannel extends JPanel {
 		}};
 		canvaogoutIconCanvas.setSize(30, 30);
 		logout.add(canvaogoutIconCanvas);
-		event=new NavigationPanelEvents(c1, cardPanel, home, inventoryCheck, inventoryEdit, settings, logout);
+		event=new NavigationPanelEvents(c1, cardPanel, home, inventoryCheck, inventoryEdit, settings, logout,db);
 		home.addMouseListener(event);
 		inventoryCheck.addMouseListener(event);
 		inventoryEdit.addMouseListener(event);

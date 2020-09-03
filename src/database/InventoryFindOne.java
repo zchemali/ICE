@@ -1,5 +1,6 @@
 package database;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import org.bson.conversions.Bson;
@@ -17,8 +18,9 @@ public class InventoryFindOne {
 //		MongoCursor<org.bson.Document> cursor = collection.find().iterator();
 		Bson bsonFilter = Filters.eq("Barcode", barcode);
 		org.bson.Document doc = collection.find(bsonFilter).first();
-	
+		if (doc!=null)
 		tableModel.insertRow(0, new Object [] {doc.get("Barcode"),doc.get("Tire Name"),doc.get("Amount Available"),doc.get("Price per Item")});
-	
+		else
+			tableModel.setRowCount(0);
 	}
 }

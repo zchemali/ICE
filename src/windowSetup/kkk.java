@@ -77,7 +77,10 @@ public class kkk {
 	private JTextField lastNameField;
 	private JTextField txtArcode;
 	private JTable viewTable;
-	private JTextField textField;
+	private JTextField tireField;
+	private JTextField barField;
+	private JTextField amntField;
+	private JTextField priceField;
 	/**
 	 * Launch the application.
 	 */
@@ -270,13 +273,6 @@ public class kkk {
 		cardPanel.add(editPanel, "Edit");
 		editPanel.setLayout(null);
 		
-		JLabel barLabel = new JLabel("Barcode");
-		barLabel.setBackground(SystemColor.inactiveCaption);
-		barLabel.setOpaque(true);
-		barLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		barLabel.setBounds(36, 62, 74, 32);
-		editPanel.add(barLabel);
-		
 		Canvas canvas_2 = new Canvas() {
 			public void paint( Graphics g) {
 				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
@@ -293,10 +289,52 @@ public class kkk {
 		tireName.setBounds(36, 118, 96, 32);
 		editPanel.add(tireName);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(144, 122, 116, 29);
-		editPanel.add(textField);
+		tireField = new JTextField();
+		tireField.setColumns(10);
+		tireField.setBounds(144, 122, 116, 29);
+		editPanel.add(tireField);
+		
+		JLabel barcLabel = new JLabel("Barcode");
+		barcLabel.setOpaque(true);
+		barcLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barcLabel.setBackground(SystemColor.inactiveCaption);
+		barcLabel.setBounds(36, 72, 96, 32);
+		editPanel.add(barcLabel);
+		
+		barField = new JTextField();
+		barField.setColumns(10);
+		barField.setBounds(144, 76, 116, 29);
+		editPanel.add(barField);
+		
+		JLabel amntLabel = new JLabel("Amount");
+		amntLabel.setOpaque(true);
+		amntLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		amntLabel.setBackground(SystemColor.inactiveCaption);
+		amntLabel.setBounds(36, 163, 96, 32);
+		editPanel.add(amntLabel);
+		
+		amntField = new JTextField();
+		amntField.setColumns(10);
+		amntField.setBounds(144, 167, 116, 29);
+		editPanel.add(amntField);
+		
+		JLabel tirePriceLabel = new JLabel("Price/tire");
+		tirePriceLabel.setOpaque(true);
+		tirePriceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tirePriceLabel.setBackground(SystemColor.inactiveCaption);
+		tirePriceLabel.setBounds(36, 213, 96, 32);
+		editPanel.add(tirePriceLabel);
+		
+		priceField = new JTextField();
+		priceField.setColumns(10);
+		priceField.setBounds(144, 217, 116, 29);
+		editPanel.add(priceField);
+		
+		JButton updateBtn = new JButton("Update");
+		updateBtn.setBackground(SystemColor.activeCaption);
+		updateBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		updateBtn.setBounds(101, 300, 144, 46);
+		editPanel.add(updateBtn);
 		
 		JPanel inventoryCardPanel = new JPanel();
 		inventoryCardPanel.setBackground(new Color(82,94,104));

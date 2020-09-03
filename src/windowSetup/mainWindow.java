@@ -142,7 +142,7 @@ public class mainWindow  {
 		cardPane.add(settingsPanel,"Settings");
 		
 		//NavigationPannel np=new NavigationPannel(WIDTH/4,HEIGHT-28,)
-		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPane,c));
+		splitPane.setLeftComponent(new NavigationPannel(WIDTH/4,HEIGHT-28,cardPane,c,db));
 	
 	}
 }

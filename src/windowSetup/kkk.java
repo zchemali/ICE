@@ -16,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
@@ -35,6 +36,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.layout.Sizes;
 
+import database.InventoryLoader;
 import imageHandle.ImageLoader;
 import panels.Inventory;
 import panels.home;
@@ -49,6 +51,15 @@ import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JEditorPane;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class kkk {
 
@@ -56,6 +67,17 @@ public class kkk {
 	private ImageLoader loader;
 	private JTextField txtBarcode;
 	private JTable table;
+	private JTextField amountField;
+	private JTextField nameField;
+	private JTextField phoneField;
+	private JTextField adressField;
+	private JTextField cityField;
+	private JTextField provinceField;
+	private JTextField emailField;
+	private JTextField lastNameField;
+	private JTextField txtArcode;
+	private JTable viewTable;
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -193,6 +215,7 @@ public class kkk {
 		inventoryEditPanel.add(editIconCanvas);
 		
 		JLabel EditLabel = new JLabel("Edit Inventory");
+	
 		EditLabel.setForeground(SystemColor.menu);
 		EditLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		inventoryEditPanel.add(EditLabel);
@@ -224,11 +247,6 @@ public class kkk {
 		canvaogoutIconCanvas.setSize(20, 20);
 		logoutPanel.add(canvaogoutIconCanvas);
 		
-		JLabel logoutLabel = new JLabel("Logout");
-		logoutLabel.setForeground(SystemColor.menu);
-		logoutLabel.setFont(new Font("Arial Black", Font.PLAIN, 16));
-		logoutPanel.add(logoutLabel);
-		
 		JPanel cardPanel = new JPanel();
 		cardPanel.setMinimumSize(new Dimension(2000, 660));
 		splitPane.setRightComponent(cardPanel);
@@ -247,92 +265,469 @@ public class kkk {
 //		};
 //		canvas_1.setSize(1800, 1000);
 //		home.add(canvas_1);
+		JPanel editPanel =new JPanel();
+		editPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(editPanel, "Edit");
+		editPanel.setLayout(null);
 		
-//		JPanel inventoryCardPanel = new JPanel();
-//		inventoryCardPanel.setBackground(new Color(82,94,104));
-		cardPanel.add(new Inventory(cardPanel,c), "Inventory");
-//		inventoryCardPanel.setLayout(new BorderLayout(0, 0));
+		JLabel barLabel = new JLabel("Barcode");
+		barLabel.setBackground(SystemColor.inactiveCaption);
+		barLabel.setOpaque(true);
+		barLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barLabel.setBounds(36, 62, 74, 32);
+		editPanel.add(barLabel);
 		
-//		JPanel purchasePanel = new JPanel();
-//		purchasePanel.setBackground(new Color(82,94,104));
-//		cardPanel.add(purchasePanel, "Purchase");
-//		purchasePanel.setLayout(null);
-//		
-//		JLabel barcodePurchase = new JLabel("Barcode:");
-//		barcodePurchase.setLabelFor(purchasePanel);
-//		barcodePurchase.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		barcodePurchase.setOpaque(true);
-//		barcodePurchase.setBackground(SystemColor.controlLtHighlight);
-//		barcodePurchase.setBounds(45, 56, 79, 26);
-//		purchasePanel.add(barcodePurchase);
-//		
-//		JLabel lblNewLabel = new JLabel("New label");
-//		lblNewLabel.setBounds(136, 56, 125, 26);
-//		purchasePanel.add(lblNewLabel);
+		Canvas canvas_2 = new Canvas() {
+			public void paint( Graphics g) {
+				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
+			}
+		};
+		canvas_2.setSize(50, 50);
+		canvas_2.setBounds(10, 10, 50, 46);
+		editPanel.add(canvas_2);
 		
-//		JPanel searchTab = new JPanel();
-//		searchTab.setBackground(Color.WHITE);
-//		searchTab.setPreferredSize(new Dimension(2000, 100));
-//		inventoryCardPanel.add(searchTab,"North");
-//		searchTab.setLayout(null);
-//		
-//		txtBarcode = new JTextField();
-//		txtBarcode.setText("Barcode");
-//		txtBarcode.addMouseListener(new MouseAdapter() {
-//			public void mouseClicked(MouseEvent e) {
-//				if(e.getSource()==txtBarcode) {
-//					txtBarcode.setText("");
-//				}
-//		}});
-//		txtBarcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		txtBarcode.setBounds(257, 35, 116, 30);
-//		txtBarcode.setBackground(Color.LIGHT_GRAY);
-//		searchTab.add(txtBarcode);
-//		txtBarcode.setColumns(10);
-//		
-//		JButton btnNewButton = new JButton("Search");
-//		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-//		btnNewButton.setBounds(139, 35, 97, 30);
-//		searchTab.add(btnNewButton);
-//		
-//		JScrollPane scrollPane = new JScrollPane();
-//		inventoryCardPanel.add(scrollPane, BorderLayout.CENTER);
-//		DefaultTableModel tableModel = new DefaultTableModel();
-//		JTable table = new JTable(tableModel);
-//	
-//		tableModel.addColumn("Barcode");
-//		tableModel.addColumn("Amount Available");
-//		tableModel.addColumn("Price per Tire");
-//		tableModel.insertRow(0, new Object[] {10020,23,2});
-//		tableModel.insertRow(0, new Object[] {100222230,23,2});
-//		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//	        public void valueChanged(ListSelectionEvent event) {
-//	            // do some actions here, for example
-//	            // print first column value from selected row
-//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
-//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
-//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
-//	        	
-//	        	c.show(cardPanel, "Purchase");
-//	        	
-//	   
-//	        	
-//	            System.out.println(barcode+"  "+amount+"  "+price);
-//	        	
-//	        }
-//	    });
-//		scrollPane.setViewportView(table);
-//		
+		JLabel tireName = new JLabel("Tire Name");
+		tireName.setOpaque(true);
+		tireName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireName.setBackground(SystemColor.inactiveCaption);
+		tireName.setBounds(36, 118, 96, 32);
+		editPanel.add(tireName);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(144, 122, 116, 29);
+		editPanel.add(textField);
+		
+		JPanel inventoryCardPanel = new JPanel();
+		inventoryCardPanel.setBackground(new Color(82,94,104));
+		cardPanel.add(inventoryCardPanel, "Inventory");
+		inventoryCardPanel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel purchasePanel = new JPanel();
+		purchasePanel.setBackground(new Color(82,94,104));
+		cardPanel.add(purchasePanel, "Purchase");
+		
+		Canvas canvas_1 = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/left-arrow.png"), 0, 0, 22, 22, null);
+		}};
+		canvas_1.setLocation(7, 7);
+		canvas_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getSource()==canvas_1)
+					c.show(cardPanel, "Inventory");
+			}
+		});
+		purchasePanel.setLayout(null);
+		canvas_1.setSize(56,25);
+		purchasePanel.add(canvas_1);
+		
+		JLabel barcodeLabel = new JLabel("Barcode");
+		barcodeLabel.setOpaque(true);
+		barcodeLabel.setBackground(SystemColor.inactiveCaption);
+		barcodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barcodeLabel.setBounds(7, 57, 81, 25);
+		purchasePanel.add(barcodeLabel);
+		
+		JLabel barcodeText = new JLabel("Barcode");
+		barcodeText.setEnabled(false);
+		barcodeText.setOpaque(true);
+		barcodeText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		barcodeText.setBackground(SystemColor.inactiveCaption);
+		barcodeText.setBounds(100, 57, 81, 25);
+		purchasePanel.add(barcodeText);
+		
+		JLabel amountLabel = new JLabel("Amount");
+		amountLabel.setOpaque(true);
+		amountLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		amountLabel.setBackground(SystemColor.inactiveCaption);
+		amountLabel.setBounds(7, 97, 81, 25);
+		purchasePanel.add(amountLabel);
+		
+		amountField = new JTextField();
+	
+
+	
+		amountField.setBounds(100, 99, 81, 25);
+		purchasePanel.add(amountField);
+		amountField.setColumns(10);
+		
+		JLabel totalLabel = new JLabel("Total");
+		totalLabel.setOpaque(true);
+		totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		totalLabel.setBackground(SystemColor.inactiveCaption);
+		totalLabel.setBounds(7, 139, 81, 25);
+		purchasePanel.add(totalLabel);
+	
+		JLabel totalText = new JLabel("Total");
+		totalText.setOpaque(true);
+		totalText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		totalText.setEnabled(false);
+		totalText.setBackground(SystemColor.inactiveCaption);
+		totalText.setBounds(100, 139, 81, 25);
+		purchasePanel.add(totalText);
+	
+		JLabel taxLabel = new JLabel("Tax");
+		taxLabel.setOpaque(true);
+		taxLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		taxLabel.setBackground(SystemColor.inactiveCaption);
+		taxLabel.setBounds(7, 177, 81, 25);
+		purchasePanel.add(taxLabel);
+	
+		JLabel taxText = new JLabel("Tax");
+		taxText.setOpaque(true);
+		taxText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		taxText.setEnabled(false);
+		taxText.setBackground(SystemColor.inactiveCaption);
+		taxText.setBounds(100, 177, 81, 25);
+		purchasePanel.add(taxText);
+		
+		JLabel afterTaxLabel = new JLabel("After Tax");
+		afterTaxLabel.setOpaque(true);
+		afterTaxLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		afterTaxLabel.setBackground(SystemColor.inactiveCaption);
+		afterTaxLabel.setBounds(7, 216, 81, 25);
+		purchasePanel.add(afterTaxLabel);
+		
+		JLabel afterTaxText = new JLabel("After Tax");
+		afterTaxText.setOpaque(true);
+		afterTaxText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		afterTaxText.setEnabled(false);
+		afterTaxText.setBackground(SystemColor.inactiveCaption);
+		afterTaxText.setBounds(100, 216, 81, 25);
+		purchasePanel.add(afterTaxText);
+		amountField.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				if( e.getSource()==amountField) {
+					totalText.setText(Integer.parseInt(amountField.getText())*2.3+"");
+					taxText.setText(Double.parseDouble(totalText.getText())*5/100+"");
+					afterTaxText.setText(Double.parseDouble(totalText.getText())+Double.parseDouble(taxText.getText())+"");
+				}}
+		});
+		JLabel firstNameLabel = new JLabel("First Name");
+		firstNameLabel.setOpaque(true);
+		firstNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		firstNameLabel.setBackground(SystemColor.inactiveCaption);
+		firstNameLabel.setBounds(7, 254, 91, 25);
+		purchasePanel.add(firstNameLabel);
+		
+		nameField = new JTextField();
+		nameField.setColumns(10);
+		nameField.setBounds(100, 254, 81, 25);
+		purchasePanel.add(nameField);
+		
+		JLabel phoneLabel = new JLabel("Phone");
+		phoneLabel.setOpaque(true);
+		phoneLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		phoneLabel.setBackground(SystemColor.inactiveCaption);
+		phoneLabel.setBounds(7, 293, 81, 25);
+		purchasePanel.add(phoneLabel);
+		
+		phoneField = new JTextField();
+		phoneField.setColumns(10);
+		phoneField.setBounds(100, 293, 81, 25);
+		purchasePanel.add(phoneField);
+		
+		JLabel adressLabel = new JLabel("Adress");
+		adressLabel.setOpaque(true);
+		adressLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		adressLabel.setBackground(SystemColor.inactiveCaption);
+		adressLabel.setBounds(7, 331, 81, 25);
+		purchasePanel.add(adressLabel);
+		
+		adressField = new JTextField();
+		adressField.setColumns(10);
+		adressField.setBounds(100, 331, 81, 25);
+		purchasePanel.add(adressField);
+		
+		JLabel cityLabel = new JLabel("City");
+		cityLabel.setOpaque(true);
+		cityLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		cityLabel.setBackground(SystemColor.inactiveCaption);
+		cityLabel.setBounds(202, 331, 81, 25);
+		purchasePanel.add(cityLabel);
+		
+		cityField = new JTextField();
+		cityField.setColumns(10);
+		cityField.setBounds(295, 331, 81, 25);
+		purchasePanel.add(cityField);
+		
+		JLabel provinceLabel = new JLabel("Province");
+		provinceLabel.setOpaque(true);
+		provinceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		provinceLabel.setBackground(SystemColor.inactiveCaption);
+		provinceLabel.setBounds(393, 331, 81, 25);
+		purchasePanel.add(provinceLabel);
+		
+		provinceField = new JTextField();
+		provinceField.setColumns(10);
+		provinceField.setBounds(486, 331, 81, 25);
+		purchasePanel.add(provinceField);
+		
+		JLabel emailLabel = new JLabel("Email");
+		emailLabel.setOpaque(true);
+		emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		emailLabel.setBackground(SystemColor.inactiveCaption);
+		emailLabel.setBounds(202, 293, 81, 25);
+		purchasePanel.add(emailLabel);
+		
+		emailField = new JTextField();
+		emailField.setColumns(10);
+		emailField.setBounds(295, 293, 81, 25);
+		purchasePanel.add(emailField);
+		
+		JLabel paymentLabel = new JLabel("Payment");
+		paymentLabel.setOpaque(true);
+		paymentLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		paymentLabel.setBackground(SystemColor.inactiveCaption);
+		paymentLabel.setBounds(7, 371, 81, 25);
+		purchasePanel.add(paymentLabel);
+		
+		JComboBox paymentCombo = new JComboBox();
+		paymentCombo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		paymentCombo.setModel(new DefaultComboBoxModel(new String[] {"Cash", "Credit", "e-Transfer"}));
+		paymentCombo.setBounds(100, 374, 81, 22);
+		purchasePanel.add(paymentCombo);
+		
+		JButton purchaseButton = new JButton("Purchase");
+		
+		purchaseButton.setForeground(SystemColor.controlText);
+//		purchaseButton.setBackground(SystemColor.activeCaption);
+		purchaseButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		purchaseButton.setBounds(167, 454, 177, 25);
+		purchasePanel.add(purchaseButton);
+		
+		lastNameField = new JTextField();
+		lastNameField.setColumns(10);
+		lastNameField.setBounds(295, 256, 81, 25);
+		purchasePanel.add(lastNameField);
+		
+		JLabel lastNameLabel = new JLabel("Last Name");
+		lastNameLabel.setOpaque(true);
+		lastNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lastNameLabel.setBackground(SystemColor.inactiveCaption);
+		lastNameLabel.setBounds(203, 254, 91, 25);
+		purchasePanel.add(lastNameLabel);
+		
+		JLabel tireNameLabel = new JLabel("Tire Name");
+		tireNameLabel.setOpaque(true);
+		tireNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireNameLabel.setBackground(SystemColor.inactiveCaption);
+		tireNameLabel.setBounds(193, 57, 81, 25);
+		purchasePanel.add(tireNameLabel);
+		
+		JLabel tireNameText = new JLabel("Name");
+		tireNameText.setOpaque(true);
+		tireNameText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tireNameText.setEnabled(false);
+		tireNameText.setBackground(SystemColor.inactiveCaption);
+		tireNameText.setBounds(286, 57, 81, 25);
+		purchasePanel.add(tireNameText);
+		
+		JLabel priceLabel = new JLabel("Price ea");
+		priceLabel.setOpaque(true);
+		priceLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		priceLabel.setBackground(SystemColor.inactiveCaption);
+		priceLabel.setBounds(193, 97, 81, 25);
+		purchasePanel.add(priceLabel);
+		
+		JLabel priceText = new JLabel("Price");
+		priceText.setOpaque(true);
+		priceText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		priceText.setEnabled(false);
+		priceText.setBackground(SystemColor.inactiveCaption);
+		priceText.setBounds(286, 97, 81, 25);
+		purchasePanel.add(priceText);
+		
+		JLabel dateLabel = new JLabel("Date dd/mm/yyyy");
+		dateLabel.setOpaque(true);
+		dateLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		dateLabel.setBackground(SystemColor.inactiveCaption);
+		dateLabel.setBounds(7, 409, 142, 25);
+		purchasePanel.add(dateLabel);
+		
+		JComboBox dayBox = new JComboBox();
+		dayBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"}));
+		dayBox.setBounds(180, 412, 41, 22);
+		purchasePanel.add(dayBox);
+		
+		JComboBox monthBox = new JComboBox();
+		monthBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		monthBox.setBounds(233, 412, 41, 22);
+		purchasePanel.add(monthBox);
+		
+		JComboBox yearBox = new JComboBox();
+		yearBox.setModel(new DefaultComboBoxModel(new String[] {"2020", "2021", "2022", "2023", "2024", "2025"}));
+		yearBox.setBounds(286, 412, 58, 22);
+		purchasePanel.add(yearBox);
+		purchaseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()==purchaseButton) {
+					if(amountField.getText().isEmpty() || nameField.getText().isEmpty() || lastNameField.getText().isEmpty() || phoneField.getText().isEmpty()|| emailField.getText().isEmpty() || adressField.getText().isEmpty() || cityField.getText().isEmpty() || provinceField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(purchasePanel, "One or more fields are empty");
+					}
+					else {
+					String barcodePurchase=barcodeText.getText();
+					String tireNamePurchase=tireNameText.getText();
+					String amountPurchase=amountField.getText();
+					String priceUnitPurchase=priceText.getText();
+					String totalPurchase=totalText.getText();
+					String taxPurchase=taxText.getText();
+					String afterTaxPurchase=afterTaxText.getText();
+					String namePurchase=nameField.getText();
+					String lastNamePurchase=lastNameField.getText();
+					String phonePurchase=phoneField.getText();
+					String emailPurchase=emailField.getText();
+					String adressPurchase=adressField.getText();
+					String cityPurchase=cityField.getText();
+					String provincePurchase=provinceField.getText();
+					String paymentPurchase=paymentCombo.getSelectedItem().toString();
+					String dayPurchase=dayBox.getSelectedItem().toString();
+					//send all these to pdfwriter/database witer
+					
+				}}
+			}
+		});
+		JPanel searchTab = new JPanel();
+		searchTab.setBackground(Color.WHITE);
+		searchTab.setPreferredSize(new Dimension(2000, 100));
+		inventoryCardPanel.add(searchTab,"North");
+		searchTab.setLayout(null);
+		
+		txtBarcode = new JTextField();
+		txtBarcode.setText("Barcode");
+		txtBarcode.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getSource()==txtBarcode) {
+					txtBarcode.setText("");
+				}
+		}});
+		txtBarcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtBarcode.setBounds(257, 35, 116, 30);
+		txtBarcode.setBackground(Color.LIGHT_GRAY);
+		searchTab.add(txtBarcode);
+		txtBarcode.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Search");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnNewButton.setBounds(139, 35, 97, 30);
+		searchTab.add(btnNewButton);
+		
+		JButton clearBtn = new JButton("Clear");
+		clearBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		clearBtn.setBounds(513, 35, 97, 30);
+		searchTab.add(clearBtn);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		inventoryCardPanel.add(scrollPane, BorderLayout.CENTER);
+		DefaultTableModel tableModel = new DefaultTableModel();
+		JTable table = new JTable(tableModel);
+	
+		tableModel.addColumn("Barcode");
+		tableModel.addColumn("Amount Available");
+		tableModel.addColumn("Price per Tire");
+		tableModel.insertRow(0, new Object[] {10020,23,2});
+		tableModel.insertRow(0, new Object[] {100222230,23,2});
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
+	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
+	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
+	        	
+	        	c.show(cardPanel, "Purchase");
+	        	
+	   
+	        	
+	            System.out.println(barcode+"  "+amount+"  "+price);
+	        	
+	        }
+	    });
+		scrollPane.setViewportView(table);
+		
 		
 		
 		
 		JPanel inventoryEditCardPanel = new JPanel();
 		inventoryEditCardPanel.setBackground(new Color(82,94,104));
-		cardPanel.add(inventoryEditCardPanel, "Edit");
+		cardPanel.add(inventoryEditCardPanel, "EditMain");
+		inventoryEditCardPanel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("edit");
-		lblNewLabel_2.setForeground(SystemColor.info);
-		inventoryEditCardPanel.add(lblNewLabel_2);
+		JPanel searchPanel = new JPanel();
+		searchPanel.setPreferredSize(new Dimension(2000, 100));
+		inventoryEditCardPanel.add(searchPanel, BorderLayout.NORTH);
+		searchPanel.setLayout(null);
+		
+		Canvas plusCanvas = new Canvas() {
+			public void paint (Graphics g) {
+				g.drawImage(loader.getImage("/google-plus.png"),0,0, 40,40, null);
+			}
+		};
+		plusCanvas.setSize(40, 40);
+		plusCanvas.setBounds(28, 0, 50, 42);
+		searchPanel.add(plusCanvas);
+		
+		txtArcode = new JTextField();
+		txtArcode.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if ( e.getSource()==txtArcode) {
+					txtArcode.setText("");
+				}
+			}
+		});
+		txtArcode.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtArcode.setText("Barcode");
+		txtArcode.setBounds(296, 27, 100, 30);
+		searchPanel.add(txtArcode);
+		txtArcode.setColumns(10);
+		
+		JButton searchBtn = new JButton("Search");
+		searchBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		searchBtn.setBounds(184, 27, 100, 30);
+		searchPanel.add(searchBtn);
+		
+		JLabel newLabel = new JLabel("New Item");
+		newLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		newLabel.setBounds(12, 41, 90, 16);
+		searchPanel.add(newLabel);
+		
+		JButton clrBtn = new JButton("Clear");
+		clrBtn.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		clrBtn.setBounds(491, 27, 100, 30);
+		searchPanel.add(clrBtn);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		inventoryEditCardPanel.add(scrollPane_1, BorderLayout.CENTER);
+		DefaultTableModel tableModel2 = new DefaultTableModel();
+		viewTable = new JTable(tableModel2);
+	
+		tableModel2.addColumn("Barcode");
+		tableModel2.addColumn("Name");
+		tableModel2.addColumn("Amount Available");
+		tableModel2.addColumn("Price per Tire");
+		tableModel2.insertRow(0, new Object[] {122,"Summ",22,2.3});
+//		new InventoryLoader(tableModel2, db);
+		viewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            // do some actions here, for example
+	            // print first column value from selected row
+//	        	Integer barcode= (Integer) table.getValueAt(table.getSelectedRow(), 0);
+//	        	Integer amount=(Integer) table.getValueAt(table.getSelectedRow(), 1);
+//	        	Integer price= (Integer) table.getValueAt(table.getSelectedRow(), 2);
+//	        	cardPanel.add(new Purchase(barcode,amount,price), "Purchase");
+	        	c.show(cardPanel, "Edit");
+	        	
+	   
+	        	
+//	            System.out.println(barcode+"  "+amount+"  "+price);
+	        	
+	        }
+	    });
+		
+		scrollPane_1.setViewportView(viewTable);
 		
 		JPanel settingsCardPanel = new JPanel();
 		settingsCardPanel.setBackground(new Color(82,94,104));
@@ -346,6 +741,22 @@ public class kkk {
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource()==inventoryLabel) {
 					c.show(cardPanel, "Inventory");
+				}
+			}
+		});
+		EditLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getSource()==EditLabel) {
+					c.show(cardPanel, "EditMain");
+				}
+			}
+		});
+		canvas_2.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getSource()==canvas_2) {
+					c.show(cardPanel, "EditMain"
+							);
 				}
 			}
 		});
